@@ -39,7 +39,7 @@
 
                         <div class="col-md-6">
                             <label for="name">Name</label>
-                            <input type="text" id="name" name="name" value="10" placeholder="">
+                            <input type="text" id="name" name="name" value="" placeholder="">
                         </div>
 
                         <div class="col-md-6">

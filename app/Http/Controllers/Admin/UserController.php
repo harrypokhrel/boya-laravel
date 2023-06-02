@@ -71,7 +71,9 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $detail = User::findOrFail($id);
+        $roles = Role::get();
+        return view('admin.user.edit', compact('detail', 'roles'));
     }
 
     /**
@@ -79,7 +81,27 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $input = $this->validate(request(), [
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,'.$user->id,
+            'phone' => 'required',
+            'password' => 'nullable|confirmed',
+            'password_confirmation' => 'nullable'
+        ]);
+
+        if(isset($request->password)){
+            $input['password'] = Hash::make($input['password']);
+        } else {
+            unset($input['password']);
+        }
+
+        $user->update($input);
+
+        DB::table('model_has_roles')->where('model_id', $id)->delete();
+        $user->assignRole($request->user_role);
+
+        return redirect()->route('users.index')->with('message','User Updated Successfully');
     }
 
     /**
@@ -87,6 +109,8 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $users = User::findOrFail($id);
+        $users->delete();
+        return redirect()->back()->with('message', 'User deleted successfully');
     }
 }

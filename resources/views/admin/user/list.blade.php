@@ -46,7 +46,7 @@
                         	<td>{{$i}}</td>
 				            <td>{{$detail->name}}</td>
 				            <td>{{$detail->email}}</td>
-                            <td>{{ $detail->roles->pluck('name') }}</td>
+                            <td>{{ $detail->roles->pluck('name')->first() }}</td>
 				            <td>
 			            	<i><nobr>
 				            	<a class="btn btn-md btn-primary edit" href="{{route('users.edit',$detail->id)}}" title="Edit"><i class="fas fa-edit"></i></a>

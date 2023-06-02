@@ -1,3 +1,36 @@
+<?php 
+    $route = Request::route()->getName();
+    function activeMenu($route, $routeName)
+    {
+      if(is_array($routeName)){
+           if(in_array($route,$routeName)){
+            return 'active';            
+           }
+      }
+      else{
+        if($route == $routeName){
+          return 'active';
+        }
+      }
+       return false;
+    }
+    
+    function openMenu($route, $routeName)
+    {
+      if(is_array($routeName)){
+           if(in_array($route,$routeName)){
+            return 'menu-open';            
+           }
+      }
+      else{
+        if($route == $routeName){
+          return 'menu-open';
+        }
+      }
+       return false;
+    }
+?>
+
 <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -75,14 +108,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
-            <a href="#" class="nav-link active">
+            <a href="{{ route('home')}}" class="nav-link <?php echo activeMenu($route, ['home']); ?>">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>Dashboard</p>
             </a>
           </li>
 
-          <li class="nav-item has-treeview">
-            <a href="{{ route('activity.create')}}" class="nav-link">
+          <li class="nav-item has-treeview <?php echo openMenu($route, ['activity.create', 'activity.index', 'activity.edit']); ?>">
+            <a href="{{ route('activity.create')}}" class="nav-link <?php echo activeMenu($route, ['activity.create', 'activity.index', 'activity.edit']); ?>">
             <i class="fa fa-tasks" aria-hidden="true"></i>
               <p>
                 &nbsp;Activities
@@ -105,8 +138,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </ul>
           </li>
 
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+          @role('Admin')
+          <li class="nav-item has-treeview <?php echo openMenu($route, ['users.create', 'users.index', 'users.edit']); ?>">
+            <a href="#" class="nav-link <?php echo activeMenu($route, ['users.create', 'users.index', 'users.edit']); ?>">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 Users
@@ -128,6 +162,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
             </ul>
           </li>
+          @endrole
 
           <li class="nav-item">
             <a href="#" class="nav-link">
