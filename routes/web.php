@@ -34,4 +34,5 @@ Route::group(['middleware' => ['auth']], function() {
     });
 
     Route::resource('activity', 'App\Http\Controllers\Admin\ActivityController');
+    Route::resource('coupons', 'App\Http\Controllers\Admin\CouponController');
 });

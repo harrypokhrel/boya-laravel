@@ -21,14 +21,17 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insert([
             'name'      =>  'BOYA USER',
             'email'     =>  'boya@gmail.com',
+            'phone'     =>  '12345678',
             'password'  =>  Hash::make('password'),
         ]);
 
         $user = User::first();
+        
+        // $this->call([
+        //     RoleAndPermissionSeeder::class,
+        // ]);
         $user->assignRole('Admin');
 
-        $this->call([
-            RoleAndPermissionSeeder::class,
-        ]);
+        
     }
 }
