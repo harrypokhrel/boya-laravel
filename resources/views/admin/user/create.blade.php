@@ -39,27 +39,27 @@
 
                         <div class="col-md-6">
                             <label for="name">Name</label>
-                            <input type="text" id="name" name="name" value="" placeholder="">
+                            <input type="text" id="name" name="name" value="" placeholder="" class="w-100">
                         </div>
 
                         <div class="col-md-6">
                             <label for="email">Email Address</label>
-                            <input type="email" id="email" name="email">
+                            <input type="email" id="email" name="email" class="w-100">
                         </div>
                         
                         <div class="col-md-6">
                             <label for="phone">Phone Number</label>
-                            <input type="text" id="phone" name="phone">
+                            <input type="text" id="phone" name="phone" class="w-100">
                         </div>
 
                         <div class="col-md-6">
                             <label for="password">Password</label>
-                            <input type="password" id="password" name="password">
+                            <input type="password" id="password" name="password" class="w-100">
                         </div>
 
                         <div class="col-md-6">
                             <label for="password">Confirm Password</label>
-                            <input type="password" id="password" name="password_confirmation">
+                            <input type="password" id="password" name="password_confirmation" class="w-100">
                         </div>
 
                         <input type="hidden" id="created_at" name="created_at" value="<?php echo date('Y-m-d H:i:s');?>">

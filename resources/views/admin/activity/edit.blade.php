@@ -34,12 +34,9 @@
                             <div class="form__wrap">
                                 <label for="activities_owner">Assign to activity owner</label>
                                 <select id="activities_owner" name="vendor_id" class="w-100">
-                                    <?php //foreach ($users as $row){
-                                            //$user_meta = get_userdata($row->ID);
-                                            //$user_roles = $user_meta->roles;
-                                            //if($user_roles[0] == 'activitiesowner'){ ?>
-                                                <option value="1">test</option>
-                                    <?php //} } ?>
+                                <?php foreach ($activityOwners as $role){ ?>
+                                    <option value="{{ $role->id }}"  {{ $role->id == $detail->vendor_id ? 'selected="selected"' : '' }}>{{ $role->name }}</option>
+                                <?php } ?>
                                 </select>
                             </div>
                         </div>

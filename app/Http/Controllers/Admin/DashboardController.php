@@ -60,6 +60,6 @@ class DashboardController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return view('admin.settings.profile');
     }
 }

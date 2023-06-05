@@ -34,4 +34,6 @@ Route::group(['middleware' => ['auth']], function() {
     });
 
     Route::resource('activity', 'App\Http\Controllers\Admin\ActivityController');
+    Route::get('settings/profile', 'App\Http\Controllers\Admin\SettingsController@profile')->name('settings.profile');
+    Route::put('settings/profile/{id}', 'App\Http\Controllers\Admin\SettingsController@profileUpdate')->name('settings.profileUpdate');
 });

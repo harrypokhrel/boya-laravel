@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Activity;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Image;
@@ -31,7 +32,8 @@ class ActivityController extends Controller
      */
     public function create()
     {
-        return view('admin.activity.create');
+        $activityOwners = User::role('Activity Owner')->get();
+        return  view('admin.activity.create', compact('activityOwners'));
     }
 
     /**
@@ -67,9 +69,10 @@ class ActivityController extends Controller
      */
     public function edit(string $id)
     {
+        $activityOwners = User::role('Activity Owner')->get();
         $detail = Activity::findOrFail($id);
         $roles = Role::get();
-        return view('admin.activity.edit', compact('detail', 'roles'));
+        return view('admin.activity.edit', compact('activityOwners', 'detail', 'roles'));
     }
 
     /**
