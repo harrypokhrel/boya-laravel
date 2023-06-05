@@ -4,13 +4,20 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Activity;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Image;
 use DB;
+use Spatie\Permission\Traits\HasRoles;
+use Spatie\Permission\Models\Role;
+use App\Http\Traits\ImageTrait;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\File;
 
 class ActivityController extends Controller
 {
+    use ImageTrait;
     /**
      * Display a listing of the resource.
      */
@@ -25,7 +32,8 @@ class ActivityController extends Controller
      */
     public function create()
     {
-        return view('admin.activity.create');
+        $activityOwners = User::role('Activity Owner')->get();
+        return  view('admin.activity.create', compact('activityOwners'));
     }
 
     /**
@@ -33,20 +41,18 @@ class ActivityController extends Controller
      */
     public function store(Request $request)
     {
-        // $post = new Activity;
+        if($request->emirates != ''){
+            $request['city'] = $request->emirates;
+        }
         $this->validate($request, $this->rules());
+
+        if ($request->hasFile('featured_image')) {
+            $folderPath = 'public/activities/';
+            $image = $request->file('featured_image');
+            $request['featured_image'] = $this->storeOrUpdate($folderPath, $image);
+        }
+
         Activity::create($request->all());
-        // $value = $request->except('status');
-        // $value['url'] = Str::slug($request->title, '-');
-        // $value['status'] = is_null($request->publish)? 0 : 1 ;
-        // if($request->image){
-        //     $image=$this->imageProcessing($request->file('image'));
-        //     $value['image'] = $image;
-        // }
-        // dd($value);
-        // $this->page->create($value);
-        // $post->save();
-        // $this->save($request);
         return redirect()->route('activity.index')->with('message','Activity Added Successfully');
     }
 
@@ -61,9 +67,12 @@ class ActivityController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(activity $activity)
+    public function edit(string $id)
     {
-        //
+        $activityOwners = User::role('Activity Owner')->get();
+        $detail = Activity::findOrFail($id);
+        $roles = Role::get();
+        return view('admin.activity.edit', compact('activityOwners', 'detail', 'roles'));
     }
 
     /**
@@ -71,42 +80,45 @@ class ActivityController extends Controller
      */
     public function update(Request $request, activity $activity)
     {
-        //
+        $activity = Activity::findOrFail($activity->id);
+        if($request->emirates != ''){
+            $request['city'] = $request->emirates;
+        }
+        $this->validate($request, $this->rules());
+
+        if ($request->hasFile('featured_image')) {
+            $folderPath = 'public/activities/';
+            $image = $request->file('featured_image');
+            $request['featured_image'] = $this->storeOrUpdate($folderPath, $image);
+        }
+
+        $activity->update($request->all());
+        return redirect()->route('activity.index')->with('message','Activity Added Successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(activity $activity)
+    public function destroy(string $id)
     {
-        //
-    }
-
-    public function imageProcessing($image)
-    {
-       $input['imagename'] = time().'.'.$image->getClientOriginalExtension();
-       $listingPath = public_path('images/listing');
-       $mainPath = public_path('images/main');
-       $img = Image::make($image->getRealPath());
-       $img->fit(200, 100)->save($listingPath.'/'.$input['imagename']);
-
-       $img1 = Image::make($image->getRealPath());
-       $img1->fit(751, 339)->save($mainPath.'/'.$input['imagename']);
-       $destinationPath = public_path('/images');
-       return $input['imagename'];     
+        $activity = Activity::findOrFail($id);
+        $activity->delete();
+        return redirect()->back()->with('message', 'Activity deleted successfully');
     }
 
     public function rules($oldId = null, $sameSlugVal=false){
         $rules =  [
-          'vendor_id'   => 'required',
-          'title'       => 'required',
-          'country'     => 'required',
-          'city'        => 'required'
-  
+            'vendor_id'       => 'required',
+            'title'           => 'required',
+            'country'         => 'required',
+            'price_weekday'   => 'required',
+            'price_weekend'   => 'required',
+            'tickets_per_time_slot'   => 'required',
+            'opening_hour'    => 'required',
+            'closing_hour'    => 'required',
+            'featured_image'  => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
-        // if($sameSlugVal){
-        //       $rules['slug'] = 'unique:pages,slug,'.$oldId.'|max:255';
-        //   }
+
         return $rules;
     }
 }

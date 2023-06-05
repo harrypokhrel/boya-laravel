@@ -39,8 +39,8 @@ return new class extends Migration
             $table->integer('approved')->unsigned()->default(0);
             $table->integer('status')->unsigned()->default(0);
             $table->text('rejection_message')->nullable();
-            $table->timestamp('last_edited')->nullable();
-            $table->timestamp('added_on')->nullable();
+            $table->date('last_edited')->nullable();
+            $table->date('added_on')->nullable();
             $table->integer('added_by')->nullable();
             $table->timestamps();
         });

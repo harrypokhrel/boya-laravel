@@ -57,6 +57,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/country-select-js/2.1.1/css/countrySelect.min.css" integrity="sha512-HHSUgqDtmyVfGT0pdLVRKcktf9PfLMfFzoiBjh9NPBzw94YFTS5DIwZ12Md/aDPcrkOstXBp9uSAOCl5W2/AOQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
   @yield('styles')
 </head>
 <body class="hold-transition sidebar-mini">
@@ -165,11 +167,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
           @endrole
 
           <li class="nav-item">
+<<<<<<< HEAD
             <a href="coupons" class="nav-link">
             <i class="fab fa-buffer"></i>
               <p>Coupons</p>
             </a>
           </li>
+=======
+            <a href="{{ route('settings.profile') }}" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>Profile</p>
+            </a>
+          </li>
+
+>>>>>>> 9d9a812017c842cb2aae328d794e28414e2bdb77
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
@@ -258,20 +269,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
-{{-- <script src="{{asset('/bower_components/admin-lte/plugins/jquery/jquery.min.js')}}"></script> --}}
+<script src="{{asset('/bower_components/admin-lte/plugins/jquery/jquery.min.js')}}"></script>
 <!-- Bootstrap 4 -->
 <script src="{{asset('/bower_components/admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('/bower_components/admin-lte/dist/js/adminlte.min.js')}}"></script>
 
 <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
-<script>
-CKEDITOR.replace( 'summary-ckeditor' );
-CKEDITOR.replace( 'summary-ckeditor-np' );
+<script src="https://cdnjs.cloudflare.com/ajax/libs/country-select-js/2.1.1/js/countrySelect.min.js" integrity="sha512-criuU34pNQDOIx2XSSIhHSvjfQcek130Y9fivItZPVfH7paZDEdtAMtwZxyPq/r2pyr9QpctipDFetLpUdKY4g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-
-</script>
-@yield('script')
-
+@stack('script')
 </body>
 </html>

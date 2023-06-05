@@ -35,7 +35,6 @@
                                 <th>ID</th>
                                 <th>Activity Name</th>
                                 <th>Category</th>
-                                <th>Sub Category</th>
                                 <th>Duration</th>
                                 <th>Age Group</th>
                                 <th>Price</th>
@@ -47,11 +46,11 @@
                         @foreach($details as $detail)
                         <tr id="{{ $detail->id }}">
                         	<td>{{$i}}</td>
-				            <td>{{$detail->atm_name_en}}</td>
-				            <td>{{$detail->publish == 1 ? 'active':'inactive'}}</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+				            <td>{{$detail->title}}</td>
+				            <td>{{$detail->category}}</td>
+                            <td>{{$detail->duration}} Minutes</td>
+                            <td>{{$detail->age_group}}</td>
+                            <td>{{$detail->price_weekday}} AED</td>
 				            <td>
 			            	<i><nobr>
 				            	<a class="btn btn-md btn-primary edit" href="{{route('activity.edit',$detail->id)}}" title="Edit"><i class="fas fa-edit"></i></a>

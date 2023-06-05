@@ -34,5 +34,10 @@ Route::group(['middleware' => ['auth']], function() {
     });
 
     Route::resource('activity', 'App\Http\Controllers\Admin\ActivityController');
+<<<<<<< HEAD
     Route::resource('coupons', 'App\Http\Controllers\Admin\CouponController');
+=======
+    Route::get('settings/profile', 'App\Http\Controllers\Admin\SettingsController@profile')->name('settings.profile');
+    Route::put('settings/profile/{id}', 'App\Http\Controllers\Admin\SettingsController@profileUpdate')->name('settings.profileUpdate');
+>>>>>>> 9d9a812017c842cb2aae328d794e28414e2bdb77
 });
