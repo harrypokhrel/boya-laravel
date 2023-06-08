@@ -59,6 +59,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/country-select-js/2.1.1/css/countrySelect.min.css" integrity="sha512-HHSUgqDtmyVfGT0pdLVRKcktf9PfLMfFzoiBjh9NPBzw94YFTS5DIwZ12Md/aDPcrkOstXBp9uSAOCl5W2/AOQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+  <link rel="stylesheet" href="{{asset('backend/css/custom.css')}}">
+
   @yield('styles')
 </head>
 <body class="hold-transition sidebar-mini">
@@ -164,23 +166,44 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
             </ul>
           </li>
+
+          <li class="nav-item has-treeview <?php echo openMenu($route, ['company.create', 'company.index', 'company.edit']); ?>">
+            <a href="#" class="nav-link <?php echo activeMenu($route, ['company.create', 'company.index', 'company.edit']); ?>">
+              <i class="nav-icon fas fa-building"></i>
+              <p>
+                Company
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('company.create')}}" class="nav-link">
+                  <i class="fa fa-plus nav-icon"></i>
+                  <p>Add Company</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('company.index')}}" class="nav-link">
+                  <i class="fa fa-list nav-icon"></i>
+                  <p>View Company</p>
+                </a>
+              </li>
+            </ul>
+          </li>
           @endrole
 
           <li class="nav-item">
-<<<<<<< HEAD
             <a href="coupons" class="nav-link">
             <i class="fab fa-buffer"></i>
               <p>Coupons</p>
             </a>
           </li>
-=======
             <a href="{{ route('settings.profile') }}" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
               <p>Profile</p>
             </a>
           </li>
 
->>>>>>> 9d9a812017c842cb2aae328d794e28414e2bdb77
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-th"></i>

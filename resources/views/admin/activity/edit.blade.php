@@ -25,25 +25,19 @@
 		<div class="col-md-12">
 			<div class="box box-primary">
 				<div class="box-header with-heading">
-					<h3 class="box-title">Add an activity</h3>
+					<h3 class="box-title">Edit an activity</h3>
 				</div>
 				<div class="box-body">
                     <div class="row">
                         @role('Admin')
                         <div class="col-md-6">
                             <div class="form__wrap">
-                                <label for="activities_owner">Assign to activity owner</label>
-                                <select id="activities_owner" name="vendor_id" class="w-100">
-                                <?php foreach ($activityOwners as $role){ ?>
-                                    <option value="{{ $role->id }}"  {{ $role->id == $detail->vendor_id ? 'selected="selected"' : '' }}>{{ $role->name }}</option>
+                                <label for="activities_owner">Assign to company</label>
+                                <select id="activities_owner" name="company_id" class="w-100">
+                                <?php foreach ($companies as $company){ ?>
+                                    <option value="{{ $company->id }}" {{ $company->id == $detail->company_id ? 'selected="selected"' : '' }}>{{ $company->title }}</option>
                                 <?php } ?>
                                 </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form__wrap">
-                                <label for="commission_percentage">Commission Percentage (%)</label>
-                                <input type="text" class='w-100' id="commission_percentage" name="commission_percentage" value="{{$detail->commission_percentage}}" placeholder="eg. 10.05">
                             </div>
                         </div>
                         @endrole
@@ -81,14 +75,14 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="form__wrap">
                                 <label for="price_weekday">Weekdays Price</label>
                                 <input type="text" id="price_weekday" name="price_weekday" placeholder="Price For Weekdays" class='w-100' value="{{$detail->price_weekday}}">
                             </div>
                         </div>
                         
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="form__wrap">
                                 <label for="price_weekend">Weekends Price</label>
                                 <input type="text" id="price_weekend" name="price_weekend" placeholder="Price For Weekends" class='w-100' value="{{$detail->price_weekend}}">
@@ -96,38 +90,9 @@
                         </div>
 
                         <div class="col-md-6">
-                            <div class="form__wrap" style="display: grid;">
-                                <label for="country">Country</label>
-                                <input type="text" id="country" name="country" class='w-100' value="{{$detail->country}}">
-                            </div>
-                        </div>
-                        
-                        <div class="col-md-6" id="emirates_field">
-                            <label for="emirates">Emirates</label>
-                            <select id="emirates" name="city" class="w-100">
-                                <option value="">-- Select --</option>
-                                <option value="Abu Dhabi" {{ $detail->city == 'Abu Dhabi' ? 'selected="selected"' : '' }}>Abu Dhabi</option>
-                                <option value="Ajman" {{ $detail->city == 'Ajman' ? 'selected="selected"' : '' }}>Ajman</option>
-                                <option value="Al Ain" {{ $detail->city == 'Al Ain' ? 'selected="selected"' : '' }}>Al Ain</option>
-                                <option value="Dubai" {{ $detail->city == 'Dubai' ? 'selected="selected"' : '' }}>Dubai</option>
-                                <option value="Fujairah" {{ $detail->city == 'Fujairah' ? 'selected="selected"' : '' }}>Fujairah</option>
-                                <option value="Sharjah" {{ $detail->city == 'Sharjah' ? 'selected="selected"' : '' }}>Sharjah</option>
-                                <option value="Ras Al-Khaimah" {{ $detail->city == 'Ras Al-Khaimah' ? 'selected="selected"' : '' }}>Ras Al-Khaimah</option>
-                                <option value="Umm Al-Quwain" {{ $detail->city == 'Umm Al-Quwain' ? 'selected="selected"' : '' }}>Umm Al-Quwain</option>
-                            </select>
-                        </div>
-                                
-                        <div class="col-md-6" id="city_field">
-                            <div class="form__wrap">
-                                <label for="city">City</label>
-                                <input type="text" id="city" name="city" class='w-100' value="{{$detail->city}}">
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
                             <div class="form__wrap">
                                 <label for="searchTextField">Location</label>
-                                <input type="text" id="searchTextField" name="location" class='w-100' value="{{$detail->city}}">
+                                <input type="text" id="searchTextField" name="location" class='w-100' value="{{$detail->location}}">
                             </div>
                         </div>
 
@@ -185,45 +150,44 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6">
-                            <div class="form__wrap ">
-                                <label for="cancellation_policy">Cancellation Policy</label>
-                                <textarea id="cancellation_policy" class="ckeditor" name="cancel_policy" rows="4">{{$detail->cancel_policy}}</textarea>
+                        <div class="col-md-3">
+                            <div class="tags__select w-100" id="tags">
+                                <label for="tags">TAGS</label>
+                                <select id="tags" name="tags[]" class="w-100">
+                                    <option value="0">tags</option>
+                                </select>
                             </div>
                         </div>
 
-                        <div class="col-md-6">
-                            <div class="ammenities__select w-100" id="feat_category">
+                        <div class="col-md-3">
+                            <div class="category__select w-100" id="tags">
                                 <label for="category">CATEGORY</label>
-                                <select id="category" name="category[]" class="w-100" multiple>
-                                    <?php //$terms = get_terms( array( 
-                                            //'taxonomy' => 'activity_category',
-                                            //'hide_empty' => false
-                                        //) );
-                                        //if ( !empty( $terms ) && !is_wp_error( $terms ) ){
-                                            //foreach ( $terms as $term ) {
-                                                //echo '<option value="'.$term->term_id.'">'.$term->name.'</option>';
-                                            //}
-                                        //} ?>
+                                <select id="category" name="category[]" class="w-100">
+                                    <option value="0">category</option>
                                 </select>
                             </div>
                         </div>
                         
                         <div class="col-md-6">
-                            <label for="featured_image">FEATURED IMAGE</label>
-                            @if($detail->featured_image)
-                            <div class="preview-image-div">
-                                <img id="preview-image-before-upload" src="{{ $detail->featured_image }}" alt="preview image" style="max-height: 250px;">
+                            <label for="feature_image">FEATURED IMAGE</label>
+                            <input type="file" id="feature_image" name="feature_image" onchange="preview_image_1();" accept="image/*">
+                            <div id="image_preview_1">
+                                @if($detail->featured_image)
+                                    <img src="{{ asset('images/activities/featured/'.$detail->featured_image) }}" alt="image">
+                                @endif
                             </div>
-                            @endif
-                            <input type="file" id="featured_image" name="featured_image" onchange="preview_image_1();" accept="image/*">
-                            <div id="image_preview_1"></div>
                         </div>
                         
                         <div class="col-md-6">
                             <label for="gallery_images">GALLERY IMAGE</label>
                             <input type="file" id="gallery_images" name="gallery_images[]" onchange="preview_image_2();" accept="image/*" multiple/>
-                            <div id="image_preview_2"></div>
+                            <div id="image_preview_2">
+                                @if($gallery)
+                                @foreach($gallery as $gal)
+                                    <img src="{{ asset('images/activities/gallery/'.$gal->image_name) }}" alt="image">
+                                @endforeach
+                                @endif
+                            </div>
                         </div>
                         
                         <input type="hidden" name="approved" value='1'>
@@ -231,7 +195,7 @@
                         <input type="hidden" id="added_on" name="added_on" value="<?php echo date('Y-m-d H:i:s');?>">
                         
                         <div class="form__wrap span__2 mt-4">
-                            <input type="submit" value="UPDATE ACTIVITY" name="update_activity_data" class="btn btn__primary mx-auto">
+                            <input type="submit" value="UPDATE ACTIVITY" name="update_activity_data" class="btn btn-primary">
                         </div>
 	                </div>
                 </div>
@@ -246,7 +210,7 @@
 @push('script')
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxskaJh28UgoN83lmnBWqy4MTybaxqrhI&libraries=places"></script>
 <script type="text/javascript">
-
+    
     function initialize() {
       var input = document.getElementById('searchTextField');
       var autocomplete = new google.maps.places.Autocomplete(input);
@@ -258,24 +222,22 @@
         });
     }
     google.maps.event.addDomListener(window, 'load', initialize);
-        
-    $("#country").countrySelect({
-        preferredCountries: ['ae', 'sa'],
-        responsiveDropdown: true
-    });
-
-    $('#city_field').hide();
-
-    // $('#country').on('input',function(e){
-    document.getElementById("country").addEventListener("blur", function() {
-        if($('#country').val() == 'United Arab Emirates (‫الإمارات العربية المتحدة‬‎)'){
-            $('div#emirates_field').show();
-            $('#city_field').hide();
-        } else {
-            $('div#emirates_field').hide();
-            $('#city_field').show();
+    
+    function preview_image_1(){
+        var total_file = document.getElementById("feature_image").files.length;
+        for(var i=0; i<total_file; i++){
+            $('#image_preview_1 > img').remove();
+            $('#image_preview_1').append("<img src='"+URL.createObjectURL(event.target.files[i])+"'><br>");
         }
-    });
-        
+    }
+
+    function preview_image_2(){
+        var total_file=document.getElementById("gallery_images").files.length;
+        $('#image_preview_2 > img').remove();
+        for(var i=0; i<total_file; i++){
+            $('#image_preview_2').append("<img src='"+URL.createObjectURL(event.target.files[i])+"'><br>");
+        }
+    }
+
 </script>
 @endpush

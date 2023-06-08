@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Activity;
 use App\Models\User;
+use App\Models\Company;
+use App\Models\Gallery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Image;
@@ -32,8 +34,8 @@ class ActivityController extends Controller
      */
     public function create()
     {
-        $activityOwners = User::role('Activity Owner')->get();
-        return  view('admin.activity.create', compact('activityOwners'));
+        $companies = Company::get();
+        return  view('admin.activity.create', compact('companies'));
     }
 
     /**
@@ -46,13 +48,39 @@ class ActivityController extends Controller
         }
         $this->validate($request, $this->rules());
 
-        if ($request->hasFile('featured_image')) {
-            $folderPath = 'public/activities/';
-            $image = $request->file('featured_image');
-            $request['featured_image'] = $this->storeOrUpdate($folderPath, $image);
+        if ($request->hasFile('feature_image')) {
+            $image = $request->file('feature_image');
+            $filename = time().'.'.$image->extension();
+            $image->move(public_path('images/activities/featured/'), $filename);
+            $request['featured_image'] = $filename;
         }
 
-        Activity::create($request->all());
+        $activity = Activity::create($request->all());
+        $activityID = $activity->id;
+
+        if ($request->hasFile('gallery_images')) {
+            $images = $request['gallery_images'];
+            $i = 1;
+            foreach($images as $image){
+                $filename = time().'-'.rand().'.'.$image->extension();
+                $image->move(public_path('images/activities/gallery/'), $filename);
+
+                try{
+                    $gallery = new Gallery;
+                    $gallery->activity_id   = $activityID;
+                    $gallery->image_name    = $filename;
+                    $gallery->image_order   = $i;
+                    $gallery->save();
+                }
+                catch(Exception $e){
+                    //
+                }
+
+                $i++;
+            }
+        }
+
+        // dd($request);
         return redirect()->route('activity.index')->with('message','Activity Added Successfully');
     }
 
@@ -69,10 +97,12 @@ class ActivityController extends Controller
      */
     public function edit(string $id)
     {
-        $activityOwners = User::role('Activity Owner')->get();
+        $companies = Company::get();
+        $gallery = Gallery::where('activity_id', '=', $id)->get();
         $detail = Activity::findOrFail($id);
         $roles = Role::get();
-        return view('admin.activity.edit', compact('activityOwners', 'detail', 'roles'));
+        // dd($gallery);
+        return view('admin.activity.edit', compact('companies', 'detail', 'gallery', 'roles'));
     }
 
     /**
@@ -80,16 +110,40 @@ class ActivityController extends Controller
      */
     public function update(Request $request, activity $activity)
     {
+        $activityID =   $activity->id;
         $activity = Activity::findOrFail($activity->id);
         if($request->emirates != ''){
             $request['city'] = $request->emirates;
         }
         $this->validate($request, $this->rules());
 
-        if ($request->hasFile('featured_image')) {
-            $folderPath = 'public/activities/';
-            $image = $request->file('featured_image');
-            $request['featured_image'] = $this->storeOrUpdate($folderPath, $image);
+        if ($request->hasFile('feature_image')) {
+            $image = $request->file('feature_image');
+            $filename = time().'.'.$image->extension();
+            $image->move(public_path('images/activities/featured/'), $filename);
+            $request['featured_image'] = $filename;
+        }
+
+        if ($request->hasFile('gallery_images')) {
+            $images = $request['gallery_images'];
+            $i = 1;
+            foreach($images as $image){
+                $filename = time().'-'.rand().'.'.$image->extension();
+                $image->move(public_path('images/activities/gallery/'), $filename);
+
+                try{
+                    $gallery = new Gallery;
+                    $gallery->activity_id   = $activityID;
+                    $gallery->image_name    = $filename;
+                    $gallery->image_order   = $i;
+                    $gallery->save();
+                }
+                catch(Exception $e){
+                    //
+                }
+
+                $i++;
+            }
         }
 
         $activity->update($request->all());
@@ -108,15 +162,14 @@ class ActivityController extends Controller
 
     public function rules($oldId = null, $sameSlugVal=false){
         $rules =  [
-            'vendor_id'       => 'required',
+            'company_id'      => 'required',
             'title'           => 'required',
-            'country'         => 'required',
             'price_weekday'   => 'required',
             'price_weekend'   => 'required',
             'tickets_per_time_slot'   => 'required',
             'opening_hour'    => 'required',
             'closing_hour'    => 'required',
-            'featured_image'  => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'feature_image'   => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
 
         return $rules;

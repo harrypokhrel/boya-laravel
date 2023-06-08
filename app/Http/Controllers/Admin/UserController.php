@@ -83,7 +83,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $input = $this->validate(request(), [
-            'name' => 'required',
+            'name'  => 'required',
             'email' => 'required|email|unique:users,email,'.$user->id,
             'phone' => 'required',
             'password' => 'nullable|confirmed',
