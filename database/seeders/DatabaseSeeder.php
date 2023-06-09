@@ -27,11 +27,10 @@ class DatabaseSeeder extends Seeder
 
         $user = User::first();
         
-        // $this->call([
-        //     RoleAndPermissionSeeder::class,
-        // ]);
-        $user->assignRole('Admin');
+        $this->call([
+            RoleAndPermissionSeeder::class,
+        ]);
 
-        
+        $user->assignRole('Admin');
     }
 }

@@ -28,24 +28,18 @@
 				</div>
 				<div class="box-body">
                     <div class="row">
-                        @role('Admin')
+                        <!-- @role('Admin') -->
                         <div class="col-md-6">
                             <div class="form__wrap">
-                                <label for="activities_owner">Assign to activity owner</label>
-                                <select id="activities_owner" name="vendor_id" class="w-100">
-                                    <?php foreach ($activityOwners as $role){ ?>
-                                        <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                <label for="activities_owner">Assign to company</label>
+                                <select id="activities_owner" name="company_id" class="w-100">
+                                    <?php foreach ($companies as $company){ ?>
+                                        <option value="{{ $company->id }}">{{ $company->title }}</option>
                                     <?php } ?>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form__wrap">
-                                <label for="commission_percentage">Commission Percentage (%)</label>
-                                <input type="text" class='w-100' id="commission_percentage" name="commission_percentage" value="10" placeholder="eg. 10.05">
-                            </div>
-                        </div>
-                        @endrole
+                        <!-- @endrole -->
 
                         <div class="col-md-6">
                             <div class="form__wrap">
@@ -80,46 +74,17 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="form__wrap">
                                 <label for="price_weekday">Weekdays Price</label>
                                 <input type="text" id="price_weekday" name="price_weekday" placeholder="Price For Weekdays" class='w-100'>
                             </div>
                         </div>
                         
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="form__wrap">
                                 <label for="price_weekend">Weekends Price</label>
                                 <input type="text" id="price_weekend" name="price_weekend" placeholder="Price For Weekends" class='w-100'>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form__wrap" style="display: grid;">
-                                <label for="country">Country</label>
-                                <input type="text" id="country" name="country" class='w-100'>
-                            </div>
-                        </div>
-                        
-                        <div class="col-md-6" id="emirates_field">
-                            <label for="emirates">Emirates</label>
-                            <select id="emirates" name="emirates" class="w-100">
-                                <option value="">-- Select --</option>
-                                <option value="Abu Dhabi">Abu Dhabi</option>
-                                <option value="Ajman">Ajman</option>
-                                <option value="Al Ain">Al Ain</option>
-                                <option value="Dubai">Dubai</option>
-                                <option value="Fujairah">Fujairah</option>
-                                <option value="Sharjah">Sharjah</option>
-                                <option value="Ras Al-Khaimah">Ras Al-Khaimah</option>
-                                <option value="Umm Al-Quwain">Umm Al-Quwain</option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-6" id="city_field">
-                            <div class="form__wrap">
-                                <label for="city">City</label>
-                                <input type="text" id="city" name="city" class='w-100'>
                             </div>
                         </div>
 
@@ -184,39 +149,28 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6">
-                            <div class="form__wrap ">
-                                <label for="cancellation_policy">Cancellation Policy</label>
-                                <textarea id="cancellation_policy" class="ckeditor" name="cancellation_policy" rows="4"></textarea>
+                        <div class="col-md-3">
+                            <div class="tags__select w-100" id="tags">
+                                <label for="tags">TAGS</label>
+                                <select id="tags" name="tags" class="w-100">
+                                    <option value="0">tags</option>
+                                </select>
                             </div>
                         </div>
 
-                        <div class="col-md-6">
-                            <div class="ammenities__select w-100" id="feat_category">
+                        <div class="col-md-3">
+                            <div class="category__select w-100" id="tags">
                                 <label for="category">CATEGORY</label>
-                                <select id="category" name="category[]" class="w-100" multiple>
-                                    <?php //$terms = get_terms( array( 
-                                            //'taxonomy' => 'activity_category',
-                                            //'hide_empty' => false
-                                        //) );
-                                        //if ( !empty( $terms ) && !is_wp_error( $terms ) ){
-                                            //foreach ( $terms as $term ) {
-                                                //echo '<option value="'.$term->term_id.'">'.$term->name.'</option>';
-                                            //}
-                                        //} ?>
+                                <select id="category" name="category" class="w-100">
+                                    <option value="0">category</option>
                                 </select>
                             </div>
                         </div>
                         
                         <div class="col-md-6">
-                            <label for="featured_image">FEATURED IMAGE</label>
-                            <div class="preview-image-div">
-                                <img id="preview-image-before-upload" src="https://www.riobeauty.co.uk/images/product_image_not_found.gif" alt="preview image" style="max-height: 250px;">
-                            </div>
-                            <input type="file" id="featured_image" name="featured_image" onchange="preview_image_1();" accept="image/*">
-                            @error('featured_image')
-                                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                            @enderror
+                            <label for="feature_image">FEATURED IMAGE</label>
+                            <input type="file" id="feature_image" name="feature_image" onchange="preview_image_1();" accept="image/*">
+                            <div id="image_preview_1"></div>
                         </div>
                         
                         <div class="col-md-6">
@@ -235,7 +189,7 @@
                         <input type="hidden" id="added_on" name="added_on" value="<?php echo date('Y-m-d H:i:s');?>">
                         
                         <div class="form__wrap span__2 mt-4">
-                            <input type="submit" value="ADD ACTIVITY" name="add_activity_data" class="btn btn__primary mx-auto">
+                            <input type="submit" value="ADD ACTIVITY" name="add_activity_data" class="btn btn-primary">
                         </div>
 	                </div>
                 </div>
@@ -250,7 +204,7 @@
 @push('script')
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxskaJh28UgoN83lmnBWqy4MTybaxqrhI&libraries=places"></script>
 <script type="text/javascript">
-
+    
     function initialize() {
       var input = document.getElementById('searchTextField');
       var autocomplete = new google.maps.places.Autocomplete(input);
@@ -262,31 +216,21 @@
         });
     }
     google.maps.event.addDomListener(window, 'load', initialize);
-        
-    $("#country").countrySelect({
-        preferredCountries: ['ae', 'sa'],
-        responsiveDropdown: true
-    });
 
-    $('#city_field').hide();
-
-    document.getElementById("country").addEventListener("blur", function() {
-        if($('#country').val() == 'United Arab Emirates (‫الإمارات العربية المتحدة‬‎)'){
-            $('div#emirates_field').show();
-            $('#city_field').hide();
-        } else {
-            $('div#emirates_field').hide();
-            $('#city_field').show();
+    function preview_image_1(){
+        var total_file = document.getElementById("feature_image").files.length;
+        for(var i=0; i<total_file; i++){
+            $('#image_preview_1 > img').remove();
+            $('#image_preview_1').append("<img src='"+URL.createObjectURL(event.target.files[i])+"'><br>");
         }
-    });
-    
-    $('#featured_image').change(function(){
-        let reader = new FileReader();
-        reader.onload = (e) => { 
-            $('#preview-image-before-upload').attr('src', e.target.result); 
-        }
-        reader.readAsDataURL(this.files[0]); 
-    });
+    }
 
+    function preview_image_2(){
+        var total_file=document.getElementById("gallery_images").files.length;
+        $('#image_preview_2 > img').remove();
+        for(var i=0; i<total_file; i++){
+            $('#image_preview_2').append("<img src='"+URL.createObjectURL(event.target.files[i])+"'><br>");
+        }
+    }
 </script>
 @endpush

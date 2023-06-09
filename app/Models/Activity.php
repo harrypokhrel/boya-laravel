@@ -11,33 +11,38 @@ class Activity extends Model
 
     protected $table = "activities";
     protected $fillable = [
-        'vendor_id',
-        'commission_percentage',
+        'company_id',
         'title',
-        'show_in_homepage',
-        'age_group',
-        'duration',
-        'price_weekday',
-        'price_weekend',
-        'country',
-        'city',
         'location',
         'latitude',
         'longitude',
-        'tickets_per_time_slot',
-        'opening_hour',
-        'closing_hour',
+        'tag',
+        'category',
+        'featured_image',
         'description',
         'highlights',
         'inclusions',
-        'cancel_policy',
-        'category',
-        'featured_image',
+        'age_group',
+        'show_in_homepage',
+        'duration',
+        'price_weekday',
+        'price_weekend',
+        'enable_shift_price',
+        'shift_discount_type',
+        'shift_on_weekends',
+        'opening_hour',
+        'shift_price',
+        'tickets_per_time_slot',
+        'opening_hour',
+        'closing_hour',
         'approved',
         'status',
         'rejection_message',
-        'last_edited',
         'added_on',
         'added_by'
     ];
+
+    public function gallery(){
+        return $this->hasMany('App\Models\Gallery'); // assuming this is the path for company model
+    }
 }

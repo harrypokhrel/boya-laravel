@@ -87,7 +87,7 @@
                         <input type="hidden" id="updated_at" name="updated_at" value="<?php echo date('Y-m-d H:i:s');?>">
                         
                         <div class="form__wrap span__2 mt-4">
-                            <input type="submit" value="UPDATE USER" name="update_user" class="btn btn__primary mx-auto">
+                            <input type="submit" value="UPDATE USER" name="update_user" class="btn btn-primary">
                         </div>
 	                </div>
                 </div>

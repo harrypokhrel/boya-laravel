@@ -1,0 +1,23 @@
+section.content-header, .box.box-primary {
+    margin: 20px;
+}
+
+.box.box-primary .col-md-6 {
+    margin-bottom: 16px;
+}
+
+div#image_preview_1 img {
+    width: 300px;
+    margin-top: 12px;
+}
+
+div#image_preview_2 img {
+    width: 160px;
+    margin-top: 12px;
+    margin-right: 8px;
+}
+
+div#image_preview_2 {
+    display: inline-flex;
+    margin-right: 10px !important;
+}

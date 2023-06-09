@@ -47,4 +47,8 @@ class User extends Authenticatable
     ];
 
     protected $table = "users";
+
+    public function company(){
+        return $this->hasMany('App\Models\Company'); // assuming this is the path for company model
+    }
 }

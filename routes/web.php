@@ -39,6 +39,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/bookings/calendar', [BookingController::class, 'calendarView'])->name('bookings.calendar');
     Route::get('/bookings/export', [BookingController::class, 'exportCSV'])->name('bookings.export');
     Route::resource('coupons', 'App\Http\Controllers\Admin\CouponController');
+    Route::resource('company', 'App\Http\Controllers\Admin\CompanyController');
+
     Route::get('settings/profile', 'App\Http\Controllers\Admin\SettingsController@profile')->name('settings.profile');
     Route::put('settings/profile/{id}', 'App\Http\Controllers\Admin\SettingsController@profileUpdate')->name('settings.profileUpdate');
 });
