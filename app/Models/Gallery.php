@@ -17,6 +17,6 @@ class Gallery extends Model
     ];
 
     public function activity(){
-        return $this->belongsTo('App\Models\Activity'); // assuming this is the path for user model
+        return $this->belongsTo('App\Models\Activity'); // assuming this is the path for activity model
     }
 }

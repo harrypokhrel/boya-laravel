@@ -3,7 +3,7 @@
 <section class="content-header">
 	<h1>Boya Company</h1>
 	<ol class="breadcrumb">
-		<li><a href=""><i class="fa fa-dashboard"></i>Dashboard</a></li>
+		<li><a href="">Dashboard</a></li>
 		<li><a href="">Company</a></li>
 		<li><a href="">Add</a></li>
 	</ol>
@@ -113,12 +113,12 @@
                                 <div class="shift_timing_div">
                                 	<div class="timing_ul_li_col">
                                     	<input type="text" id="st_1_1" class="shift_timings_list" name="st[1][1]" placeholder="Eg: Morning">
-                                    	<input type="time" id="st_1_2" class="shift_timings_list" name="st[1][2]" placeholder="Select Time">
-                                    	<input type="time" id="st_1_3" class="shift_timings_list" name="st[1][3]" placeholder="Select Time">
+                                    	<input type="text" id="st_1_2" class="shift_timings_list timepicker" name="st[1][2]" placeholder="Select Time">
+                                    	<input type="text" id="st_1_3" class="shift_timings_list timepicker" name="st[1][3]" placeholder="Select Time">
                                         <br>
                                         <input type="text" id="st_2_1" class="shift_timings_list" name="st[2][1]" placeholder="Eg: Afternoon">
-                                    	<input type="time" id="st_2_2" class="shift_timings_list" name="st[2][2]" placeholder="Select Time">
-                                    	<input type="time" id="st_2_3" class="shift_timings_list" name="st[2][3]" placeholder="Select Time">
+                                    	<input type="text" id="st_2_2" class="shift_timings_list timepicker" name="st[2][2]" placeholder="Select Time">
+                                    	<input type="text" id="st_2_3" class="shift_timings_list timepicker" name="st[2][3]" placeholder="Select Time">
 
                                     	<div class="add_more_rules_div_villas_btn">
                                 	        <button class="add_more_shifts btn btn-primary mb-3" id="st_3">Add More Shifts</button>
@@ -183,9 +183,22 @@
         var get_id      =   this.id;
         var array       =   get_id.split("_");
         var lastElement =   array.pop();
-        $('<input type="text" id="st_'+lastElement+'_1" class="shift_timings_list" name="st['+lastElement+'][1]" placeholder=""><input type="time" id="st_'+lastElement+'_2" class="shift_timings_list" name="st['+lastElement+'][2]" placeholder=""><input type="time" id="st_'+lastElement+'_3" class="shift_timings_list" name="st['+lastElement+'][3]" placeholder=""><br>').insertBefore(this);
+        $('<input type="text" id="st_'+lastElement+'_1" class="shift_timings_list" name="st['+lastElement+'][1]" placeholder=""><input type="text" id="st_'+lastElement+'_2" class="shift_timings_list timepicker" name="st['+lastElement+'][2]" placeholder=""><input type="text" id="st_'+lastElement+'_3" class="shift_timings_list timepicker" name="st['+lastElement+'][3]" placeholder=""><br>').insertBefore(this);
         lastElement++;
         $(this).attr('id', 'st_'+lastElement);
+        $('.timepicker').pickatime({
+            format: 'HH:i',
+            interval: 30,
+            min: [8,0],
+            max: [20,0]
+        });
+    });
+
+    $('.timepicker').pickatime({
+        format: 'HH:i',
+        interval: 30,
+        min: [8,0],
+        max: [20,0]
     });
 
 </script>

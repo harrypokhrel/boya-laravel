@@ -43,6 +43,10 @@ class Activity extends Model
     ];
 
     public function gallery(){
-        return $this->hasMany('App\Models\Gallery'); // assuming this is the path for company model
+        return $this->hasMany('App\Models\Gallery'); // assuming this is the path for gallery model
+    }
+
+    public function company(){
+        return $this->belongsTo('App\Models\Company'); // assuming this is the path for company model
     }
 }

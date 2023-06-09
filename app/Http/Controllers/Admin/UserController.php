@@ -113,4 +113,18 @@ class UserController extends Controller
         $users->delete();
         return redirect()->back()->with('message', 'User deleted successfully');
     }
+
+    public function search(Request $request)
+    {
+        $search = $request->input('roles');
+        // dd($search);
+        if($search != '-- Select a role --'){
+            $details = User::with("roles")->whereHas("roles", function($q) use ($search) {
+                $q->whereIn("name", [$search]);
+            })->get();
+        } else {
+            $details = User::get();
+        }
+        return  view('admin.user.list', compact('details'));
+    }
 }

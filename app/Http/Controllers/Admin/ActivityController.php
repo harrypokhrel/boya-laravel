@@ -98,7 +98,7 @@ class ActivityController extends Controller
     public function edit(string $id)
     {
         $companies = Company::get();
-        $gallery = Gallery::where('activity_id', '=', $id)->get();
+        $gallery = Gallery::where('activity_id', '=', $id)->orderBy('image_order', 'asc')->get();
         $detail = Activity::findOrFail($id);
         $roles = Role::get();
         // dd($gallery);
@@ -124,12 +124,16 @@ class ActivityController extends Controller
             $request['featured_image'] = $filename;
         }
 
+        // dd($request['gallery_images']);
+
         if ($request->hasFile('gallery_images')) {
             $images = $request['gallery_images'];
-            $i = 1;
+            $records = Gallery::where('activity_id', $activity->id)->get();
+            $i = count($records);
             foreach($images as $image){
                 $filename = time().'-'.rand().'.'.$image->extension();
                 $image->move(public_path('images/activities/gallery/'), $filename);
+                $i++;
 
                 try{
                     $gallery = new Gallery;
@@ -142,12 +146,49 @@ class ActivityController extends Controller
                     //
                 }
 
-                $i++;
             }
         }
 
         $activity->update($request->all());
         return redirect()->route('activity.index')->with('message','Activity Added Successfully');
+    }
+
+    /**
+     * Update the image order
+     */
+    public function updateImageOrder(Request $request)
+    {
+        $i = 0;
+        $j = 1;
+        $newImageOrder = $request->image_order_ids;
+        $records = Gallery::where('activity_id', $request->activity_id)->get();
+        $count  =   count($records);
+        for($i=0;$i<$count;$i++){
+            Gallery::where('activity_id', $request->activity_id)
+                    ->where('id', $newImageOrder[$i])
+                    ->update(['image_order' => $j]);
+            $j++;
+        }
+        $data = [
+            'success'   => true,
+            'message'   => 'The images has been reordered.'
+        ];
+        return response()->json($data);
+    }
+
+    /**
+     * Delete an image
+     */
+    public function deleteImage(Request $request)
+    {
+        $image = Gallery::findOrFail($request->imageKoId);
+        $image->delete();
+
+        $data = [
+            'success'   => true,
+            'message'   => 'The image has been deleted.'
+        ];
+        return response()->json($data);
     }
 
     /**
@@ -169,9 +210,23 @@ class ActivityController extends Controller
             'tickets_per_time_slot'   => 'required',
             'opening_hour'    => 'required',
             'closing_hour'    => 'required',
-            'feature_image'   => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            // 'feature_image'   => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
 
         return $rules;
     }
+
+    public function search(Request $request)
+    {
+        $search = $request->input('company');
+
+        $details = Activity::with('company')
+            ->whereHas('company', function ($q) use ($search) {
+                $q->where('title', "LIKE", "%{$search}%");
+            })
+            ->get();
+
+        return  view('admin.activity.list', compact('details'));
+    }
+
 }

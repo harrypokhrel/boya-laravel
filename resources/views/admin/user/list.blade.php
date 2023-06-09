@@ -1,14 +1,48 @@
 @extends('layouts.backend')
+
+@section('styles')
+<style>
+	button.btn.btn-default {
+		margin-top: 25px;
+	}
+</style>
+@endsection
+
 @section('content')
 <section class="content-header">
 	<h1>Users<small>&nbsp;Control Panel</small></h1>
 	<a href="{{route('users.create')}}" class="btn btn-sm btn-warning"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Add New</a>
 	<ol class="breadcrumb">
-		<li><a href=""><i class="fa fa-dashboard"></i>Dashboard</a></li>
+		<li><a href="">Dashboard</a></li>
 		<li><a href="">Users</a></li>
 		<li><a href="">List</a></li>
 	</ol>
 </section>
+
+<section class="content-filter filter__section">
+	<form action="{{ route('users.search') }}" method="POST" role="search">
+		{{ csrf_field() }}
+		<div class="input-group">
+
+			<div class="form-group" data-select2-id="13">
+				<label>Filter by role</label>
+				<select name="roles" class="form-control select2 select2-hidden-accessible" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true">
+					<option selected="selected" data-select2-id="">-- Select a role --</option>
+					<option data-select2-id="Admin">Admin</option>
+					<option data-select2-id="Activity Owner">Activity Owner</option>
+					<option data-select2-id="Customer">Customer</option>
+				</select>
+			</div>
+			
+			<span class="input-group-btn">
+				<button type="submit" class="btn btn-default">
+					<span class="glyphicon glyphicon-search"></span>
+				</button>
+			</span>
+		</div>
+	</form>
+</section>
+
 <div class="content">
 	@if(Session::has('message'))
 	<div class="alert alert-success alert-dismissible">
