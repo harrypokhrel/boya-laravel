@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\ActivityController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\BookingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,10 +35,10 @@ Route::group(['middleware' => ['auth']], function() {
     });
 
     Route::resource('activity', 'App\Http\Controllers\Admin\ActivityController');
-<<<<<<< HEAD
+    Route::resource('bookings', 'App\Http\Controllers\Admin\BookingController');
+    Route::get('/bookings/calendar', [BookingController::class, 'calendarView'])->name('bookings.calendar');
+    Route::get('/bookings/export', [BookingController::class, 'exportCSV'])->name('bookings.export');
     Route::resource('coupons', 'App\Http\Controllers\Admin\CouponController');
-=======
     Route::get('settings/profile', 'App\Http\Controllers\Admin\SettingsController@profile')->name('settings.profile');
     Route::put('settings/profile/{id}', 'App\Http\Controllers\Admin\SettingsController@profileUpdate')->name('settings.profileUpdate');
->>>>>>> 9d9a812017c842cb2aae328d794e28414e2bdb77
 });

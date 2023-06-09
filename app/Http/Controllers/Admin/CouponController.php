@@ -24,7 +24,7 @@ class CouponController extends Controller
      */
     public function create()
     {
-       return view('coupons.create'); //
+       return view('coupons.create'); 
     }
 
     /**
@@ -44,7 +44,7 @@ class CouponController extends Controller
         Coupon::create($request->all());
      
         return redirect()->route('coupons.index')
-                        ->with('success','Coupons created successfully.');//
+                        ->with('success','Coupons created successfully.');
     }
 
     /**
@@ -52,7 +52,7 @@ class CouponController extends Controller
      */
     public function show(string $id)
     {
-      return view('coupons.show',compact('coupons'));  //
+      return view('coupons.show',compact('coupons')); 
     }
 
     /**

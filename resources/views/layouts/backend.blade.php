@@ -165,22 +165,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </ul>
           </li>
           @endrole
-
           <li class="nav-item">
-<<<<<<< HEAD
+            <a href="bookings" class="nav-link">
+            <i class="fas fa-shopping-bag"></i>
+              <p>Bookings</p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="coupons" class="nav-link">
             <i class="fab fa-buffer"></i>
               <p>Coupons</p>
             </a>
           </li>
-=======
             <a href="{{ route('settings.profile') }}" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
               <p>Profile</p>
             </a>
           </li>
 
->>>>>>> 9d9a812017c842cb2aae328d794e28414e2bdb77
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
