@@ -33,12 +33,12 @@ class CouponController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'id'           => 'required',
-            'coupon_code'  => 'required',
-            'coupon_type'  => 'required',
-            'activity'     => 'required',
-            'start_date'   => 'required',
-            'end_date'     => 'required',
+            'id'           => 'nullable',
+            'coupon_code'  => 'nullable',
+            'coupon_type'  => 'nullable',
+            'activity'     => 'nullable',
+            'start_date'   => 'nullable',
+            'end_date'     => 'nullable',
         ]);
     
         Coupon::create($request->all());

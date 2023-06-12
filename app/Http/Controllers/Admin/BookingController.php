@@ -35,20 +35,20 @@ class BookingController extends Controller
 {
     $request->validate([
         // 'booking_id'     => 'required',
-        'activity_name'  => 'required',
-        'first_name'     => 'required',
-        'last_name'      => 'required',
-        'email'          => 'required',
-        'date'           => 'required',
-        'time'           => 'required',
-        'mobile'         => 'required',
-        'No_of_tickets'  => 'required',
-        'sub_total'      => 'required',
-        'total'          => 'required',
-        'payment_method' => 'required',
-        'status'         => 'required',
-        'note'           => 'required',
-        'payment_note'   => 'required',
+        'activity_name'  => 'nullable',
+        'first_name'     => 'nullable',
+        'last_name'      => 'nullable',
+        'email'          => 'nullable',
+        'date'           => 'nullable',
+        'time'           => 'nullable',
+        'mobile'         => 'nullable',
+        'No_of_tickets'  => 'nullable',
+        'sub_total'      => 'nullable',
+        'total'          => 'nullable',
+        'payment_method' => 'nullable',
+        'status'         => 'nullable',
+        'note'           => 'nullable',
+        'payment_note'   => 'nullable',
         'image'          => 'nullable',
     ]);
 
@@ -94,7 +94,7 @@ class BookingController extends Controller
      */
     public function edit(Booking $booking)
     {
-        return view ('admin.edit.bookings',compact('booking'));
+        return view ('admin.bookings.edit',compact('booking'));
     }
 
     /**

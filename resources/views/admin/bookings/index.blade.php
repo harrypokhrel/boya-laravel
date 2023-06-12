@@ -99,7 +99,6 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Loop through coupons and display each row -->
                 @foreach($bookings as $booking)
                     <tr>
                         <!-- <td>{{ $booking->id }}</td> -->
@@ -115,7 +114,7 @@
                         <td>{{ $booking->payment_method }}</td>
                         <td>{{ $booking->status }}</td>
                         <td>
-                            <a href="{{ route('bookings.show', $booking->id) }}" class="btn btn-info">View</a>
+                            <!-- <a href="{{ route('bookings.show', $booking->id) }}" class="btn btn-info">View</a> -->
                             <a href="{{ route('bookings.edit', $booking->id) }}" class="btn btn-primary">Edit</a>
                             <form action="{{ route('bookings.destroy', $booking->id) }}" method="POST" style="display:inline;">
                                 @csrf
