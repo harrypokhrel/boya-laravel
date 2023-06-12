@@ -4,11 +4,26 @@
 	<h1>Activities<small>&nbsp;Control Panel</small></h1>
 	<a href="{{route('activity.create')}}" class="btn btn-sm btn-warning"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Add New</a>
 	<ol class="breadcrumb">
-		<li><a href=""><i class="fa fa-dashboard"></i>Dashboard</a></li>
+		<li><a href="">Dashboard</a></li>
 		<li><a href="">Activities</a></li>
 		<li><a href="">List</a></li>
 	</ol>
 </section>
+
+<section class="content-filter filter__section">
+	<form action="{{ route('activity.search') }}" method="POST" role="search">
+		{{ csrf_field() }}
+		<div class="input-group">
+			<input type="text" class="form-control" name="company" placeholder="Search by company" value="<?php echo(isset($_POST['company']))?$_POST['company']:'';?>">
+			<span class="input-group-btn">
+				<button type="submit" class="btn btn-default">
+					<span class="glyphicon glyphicon-search"></span>
+				</button>
+			</span>
+		</div>
+	</form>
+</section>
+
 <div class="content">
 	@if(Session::has('message'))
 	<div class="alert alert-success alert-dismissible">
@@ -34,6 +49,7 @@
 							<tr>
                                 <th>ID</th>
                                 <th>Activity Name</th>
+								<th>Company</th>
                                 <th>Category</th>
                                 <th>Duration</th>
                                 <th>Age Group</th>
@@ -47,6 +63,7 @@
                         <tr id="{{ $detail->id }}">
                         	<td>{{$i}}</td>
 				            <td>{{$detail->title}}</td>
+							<td>{{$detail->company->title}}</td>
 				            <td>{{$detail->category}}</td>
                             <td>{{$detail->duration}} Minutes</td>
                             <td>{{$detail->age_group}}</td>

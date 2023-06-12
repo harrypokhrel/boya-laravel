@@ -48,7 +48,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <title>{{ config('app.name', 'Laravel') }}</title>
 
   <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="{{asset('/bower_components/admin-lte/plugins/fontawesome-free/css/all.min.css')}}">
+  <link rel="stylesheet" href="{{asset('bower_components/admin-lte/plugins/fontawesome-free/css/all.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('bower_components/admin-lte/dist/css/adminlte.min.css')}}">
 
@@ -58,7 +58,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/country-select-js/2.1.1/css/countrySelect.min.css" integrity="sha512-HHSUgqDtmyVfGT0pdLVRKcktf9PfLMfFzoiBjh9NPBzw94YFTS5DIwZ12Md/aDPcrkOstXBp9uSAOCl5W2/AOQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.14.0/jquery.timepicker.min.css" integrity="sha512-WlaNl0+Upj44uL9cq9cgIWSobsjEOD1H7GK1Ny1gmwl43sO0QAUxVpvX2x+5iQz/C60J3+bM7V07aC/CNWt/Yw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="{{asset('backend/css/picker.date.min.css')}}">
   <link rel="stylesheet" href="{{asset('backend/css/custom.css')}}">
 
   @yield('styles')
@@ -128,13 +130,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('activity.create')}}" class="nav-link">
+                <a href="{{ route('activity.create')}}" class="nav-link <?php echo activeMenu($route, ['activity.create']); ?>">
                   <i class="fa fa-plus nav-icon"></i>
                   <p>Add Activity</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('activity.index')}}" class="nav-link">
+                <a href="{{ route('activity.index')}}" class="nav-link <?php echo activeMenu($route, ['activity.index']); ?>">
                   <i class="fa fa-list nav-icon"></i>
                   <p>View Activities</p>
                 </a>
@@ -153,19 +155,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('users.create')}}" class="nav-link">
+                <a href="{{ route('users.create')}}" class="nav-link <?php echo activeMenu($route, ['users.create']); ?>">
                   <i class="fa fa-plus nav-icon"></i>
                   <p>Add User</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('users.index')}}" class="nav-link">
+                <a href="{{ route('users.index')}}" class="nav-link <?php echo activeMenu($route, ['users.index']); ?>">
                   <i class="fa fa-list nav-icon"></i>
                   <p>View Users</p>
                 </a>
               </li>
             </ul>
           </li>
+          @endrole
 
           <li class="nav-item has-treeview <?php echo openMenu($route, ['company.create', 'company.index', 'company.edit']); ?>">
             <a href="#" class="nav-link <?php echo activeMenu($route, ['company.create', 'company.index', 'company.edit']); ?>">
@@ -177,20 +180,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('company.create')}}" class="nav-link">
+                <a href="{{ route('company.create')}}" class="nav-link <?php echo activeMenu($route, ['company.create']); ?>">
                   <i class="fa fa-plus nav-icon"></i>
                   <p>Add Company</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('company.index')}}" class="nav-link">
+                <a href="{{ route('company.index')}}" class="nav-link <?php echo activeMenu($route, ['company.index']); ?>">
                   <i class="fa fa-list nav-icon"></i>
                   <p>View Company</p>
                 </a>
               </li>
             </ul>
           </li>
-          @endrole
           <li class="nav-item">
             <a href="bookings" class="nav-link">
             <i class="fas fa-shopping-bag"></i>
@@ -203,18 +205,31 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <p>Coupons</p>
             </a>
           </li>
-            <a href="{{ route('settings.profile') }}" class="nav-link">
-              <i class="nav-icon fas fa-user"></i>
-              <p>Profile</p>
+
+          <li class="nav-item has-treeview <?php echo openMenu($route, ['settings.profile']); ?>">
+            <a href="#" class="nav-link <?php echo activeMenu($route, ['settings.profile']); ?>">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Settings
+                <i class="right fas fa-angle-left"></i>
+              </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('settings.profile') }}" class="nav-link <?php echo activeMenu($route, ['settings.profile']); ?>">
+                  <i class="fa fa-user nav-icon"></i>
+                  <p>Profile</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="" class="nav-link">
+                  <i class="fa fa-list nav-icon"></i>
+                  <p>Reserve Dates</p>
+                </a>
+              </li>
+            </ul>
           </li>
 
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>Settings</p>
-            </a>
-          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -297,14 +312,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
-<script src="{{asset('/bower_components/admin-lte/plugins/jquery/jquery.min.js')}}"></script>
+<script src="{{asset('bower_components/admin-lte/plugins/jquery/jquery.min.js')}}"></script>
 <!-- Bootstrap 4 -->
-<script src="{{asset('/bower_components/admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{asset('bower_components/admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- AdminLTE App -->
-<script src="{{asset('/bower_components/admin-lte/dist/js/adminlte.min.js')}}"></script>
+<script src="{{asset('bower_components/admin-lte/dist/js/adminlte.min.js')}}"></script>
 
 <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/country-select-js/2.1.1/js/countrySelect.min.js" integrity="sha512-criuU34pNQDOIx2XSSIhHSvjfQcek130Y9fivItZPVfH7paZDEdtAMtwZxyPq/r2pyr9QpctipDFetLpUdKY4g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pickadate.js/3.5.6/picker.js" integrity="sha512-f6WsaafWFia+glfiIH85UyfdCVDyJScsVDM70lJhKr2lt2cYyptkiqtVxcxPnh/CduM/FpfL0eC4liTwZMb58g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{{asset('backend/js/picker.date.min.js')}}"></script>
 
 @stack('script')
 </body>

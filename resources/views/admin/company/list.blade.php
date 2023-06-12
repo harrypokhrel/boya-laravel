@@ -4,11 +4,26 @@
 	<h1>Company<small>&nbsp;Control Panel</small></h1>
 	<a href="{{route('company.create')}}" class="btn btn-sm btn-warning"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Add New</a>
 	<ol class="breadcrumb">
-		<li><a href=""><i class="fa fa-dashboard"></i>Dashboard</a></li>
+		<li><a href="">Dashboard</a></li>
 		<li><a href="">Company</a></li>
 		<li><a href="">List</a></li>
 	</ol>
 </section>
+
+<section class="content-filter filter__section">
+	<form action="{{ route('company.search') }}" method="POST" role="search">
+		{{ csrf_field() }}
+		<div class="input-group">
+			<input type="text" class="form-control" name="user" placeholder="Search by owner name" value="<?php echo(isset($_POST['user']))?$_POST['user']:'';?>">
+			<span class="input-group-btn">
+				<button type="submit" class="btn btn-default">
+					<span class="glyphicon glyphicon-search"></span>
+				</button>
+			</span>
+		</div>
+	</form>
+</section>
+
 <div class="content">
 	@if(Session::has('message'))
 	<div class="alert alert-success alert-dismissible">

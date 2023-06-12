@@ -3,7 +3,7 @@
 <section class="content-header">
 	<h1>Boya Activities</h1>
 	<ol class="breadcrumb">
-		<li><a href=""><i class="fa fa-dashboard"></i>Dashboard</a></li>
+		<li><a href="">Dashboard</a></li>
 		<li><a href="">Activities</a></li>
 		<li><a href="">Add</a></li>
 	</ol>

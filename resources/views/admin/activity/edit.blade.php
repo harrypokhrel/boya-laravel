@@ -1,9 +1,66 @@
 @extends('layouts.backend')
+
+@section('styles')
+<style>
+    ul.reorder_ul.reorder-photos-list img, div#image_preview_2 img {
+        width: 160px;
+        height: 100px;
+    }
+
+    ul.reorder_ul.reorder-photos-list li {
+        display: inline-flex;
+        margin-right: 10px;
+        margin-bottom: 10px;
+    }
+
+    ul.reorder_ul.reorder-photos-list {
+        margin-left: -40px;
+        margin-top: 20px;
+    }
+
+    div#image_preview_2 {
+        display: inline-flex;
+        margin-right: 10px !important;
+        margin-bottom: 18px;
+    }
+
+    .gallery i.fa.fa-remove.selected_gallery_image {
+        font-size: 16px !important;
+        line-height: 0.7;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .dashboard__container .gallery .delete_popup {
+        position: absolute;
+        left: auto;
+        right: -7px;
+        margin: 0;
+        top: -13px;
+        background: #ededed;
+        padding: 5px 6px;
+        line-height: 1;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+    }
+
+    p.delete_popup {
+        position: absolute;
+        background: #ededed;
+        padding: 5px 6px;
+        margin-top: -100px;
+        margin-left: 136px!important;
+    }
+</style>
+@endsection
+
 @section('content')
 <section class="content-header">
 	<h1>Boya Activities</h1>
 	<ol class="breadcrumb">
-		<li><a href=""><i class="fa fa-dashboard"></i>Dashboard</a></li>
+		<li><a href="">Dashboard</a></li>
 		<li><a href="">Activities</a></li>
 		<li><a href="">Add</a></li>
 	</ol>
@@ -182,11 +239,31 @@
                             <label for="gallery_images">GALLERY IMAGE</label>
                             <input type="file" id="gallery_images" name="gallery_images[]" onchange="preview_image_2();" accept="image/*" multiple/>
                             <div id="image_preview_2">
-                                @if($gallery)
-                                @foreach($gallery as $gal)
-                                    <img src="{{ asset('images/activities/gallery/'.$gal->image_name) }}" alt="image">
-                                @endforeach
-                                @endif
+                                
+                            </div>
+                            <div id="image_preview_3">
+                                <a href="javascript:void(0);" class="reorder_link reorder btn btn-danger" id="reorder_link">Reorder Photos</a>
+                                <a href="javascript:void(0);" class="reorder_link saveReorder btn btn-success" id="saveReorder">Save Reordering</a>
+                                <div id="reorderHelper" class="light_box" style="display:none;">
+                                    1. Drag photos to reorder.<br>2. Click 'Save Reordering' when finished.
+                                </div>
+                                <div id="reorderHelperWarning" class="light_box notice notice_error" style="display:none;">
+                                    Reordering Photos - This could take a moment.<br>Please don't navigate away from this page.
+                                </div>
+                                <div class="gallery">
+                                    <ul class="reorder_ul reorder-photos-list">
+                                    @foreach($gallery as $gallery_image)
+                                    <li id="image_li_{{$gallery_image->id}}" class="ui-sortable-handle">
+                                        <a href="javascript:void(0);" style="float:none;" class="image_link">
+                                            <img id="{{$gallery_image->id}}" src="{{ asset('images/activities/gallery/'.$gallery_image->image_name) }}" alt="image">
+                                            <p class="delete_popup" data-id="{{$gallery_image->id}}">
+                                                <i class="fa fa-remove selected_gallery_image" style="color:red;"></i>
+                                            </p>
+                                        </a>
+                                    </li>
+                                    @endforeach
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                         
@@ -208,6 +285,8 @@
 @endsection
 
 @push('script')
+
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxskaJh28UgoN83lmnBWqy4MTybaxqrhI&libraries=places"></script>
 <script type="text/javascript">
     
@@ -239,5 +318,112 @@
         }
     }
 
+    // reorder image codes
+    $('a#saveReorder').hide();
+    $('div#reorderHelperWarning').hide();
+    $('#reorder_link').on('click',function(){
+        $("ul.reorder-photos-list").sortable({ tolerance: 'pointer' });
+        $('#reorder_link').hide();
+        $('#reorderHelper').show();
+        $('.image_link').attr("href","javascript:void(0);");
+        $('.image_link').css("cursor","move");
+        $("#saveReorder").show();
+        
+        $("#saveReorder").click(function(){
+            $('#reorderHelper').hide();
+            $('#reorderHelperWarning').show();
+            if( !$("#saveReorder i").length ){
+                $(this).html('').prepend('<img src="https://geteverywhere.ae/beta/wp-content/uploads/2023/03/animated-gif.gif" width="30px">');
+                $("ul.reorder-photos-list").sortable({ 
+                    cancel: ".disable-sort" 
+                });
+                var image_order_ids = [];
+                var activity_id = <?php echo $detail->id;?>;
+                
+                $("ul.reorder-photos-list li").each(function() {
+                    image_order_ids.push($(this).attr('id').substr(9));
+                });
+                
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                var formData = {
+                    activity_id: activity_id,
+                    image_order_ids: image_order_ids,
+                };
+                var type = "PUT";
+                var ajaxurl = "{{ route('activity.updateImageOrder') }}";
+                $.ajax({
+                    type: type,
+                    url: ajaxurl,
+                    data: formData,
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.success == true) {
+                            $('#reorderHelperWarning').hide();
+                            $('a#saveReorder').html('Save Reordering');
+                            $("ul.reorder-photos-list li a").css({'cursor' :"default"});
+                            $("a#saveReorder").hide();
+                            $("#reorder_link").show();
+                        }
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+            }
+        });
+    });
+
+    $('body').on('click', '.delete_popup', function () {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+                )
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                var formData = {
+                    imageKoId: $(this).data("id"),
+                };
+                var imgID = $(this).data("id");
+                var type = "DELETE";
+                var ajaxurl = "{{ route('activity.deleteImage') }}";
+
+                $.ajax({
+                    type: type,
+                    url: ajaxurl,
+                    data: formData,
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.success == true) {
+                            $('li#image_li_' + imgID ).remove();
+                        }
+                    },
+                    error: function (data) {
+                        console.log('Error:', data);
+                    }
+                });
+            }
+        });
+    });
 </script>
 @endpush

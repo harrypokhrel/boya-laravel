@@ -28,4 +28,8 @@ class Company extends Model
     public function user(){
         return $this->belongsTo('App\Models\User'); // assuming this is the path for user model
     }
+
+    public function activity(){
+        return $this->hasMany('App\Models\Activity'); // assuming this is the path for activity model
+    }
 }

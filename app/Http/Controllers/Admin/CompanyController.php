@@ -103,4 +103,17 @@ class CompanyController extends Controller
 
         return $rules;
     }
+
+    public function search(Request $request)
+    {
+        $search = $request->input('user');
+
+        $details = Company::with('user')
+            ->whereHas('user', function ($q) use ($search) {
+                $q->where('name', "LIKE", "%{$search}%");
+            })
+            ->get();
+
+        return  view('admin.company.list', compact('details'));
+    }
 }
