@@ -18,9 +18,9 @@ use App\Http\Controllers\BookingController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// routes for frontend
+Route::get('/', 'App\Http\Controllers\Frontend\HomepageController@index')->name('home');
+Route::get('/activities', 'App\Http\Controllers\Frontend\ActivityController@index')->name('activities');
 
 Auth::routes();
 
