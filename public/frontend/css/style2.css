@@ -1,0 +1,614 @@
+:root {
+  --primary: #f1610d;
+  --secondary: #1a265b;
+  --bg_gray: #f6f6f6;
+  --red: #ff0000;
+  --dark_gray: #7b7b7b;
+  --manbowSolid: 'manbowSolid', sans-serif;
+  --proximaNovaBold: 'proximaNovaBold', sans-serif;
+  --proximaNovaLight: 'proximaNovaLight', sans-serif;
+  --latoRegular: 'latoRegular', sans-serif;
+  --latoLight: 'latoLight', sans-serif;
+  --proximaNovaSemiBold: 'proximaNovaSemiBold', sans-serif;
+
+}
+
+@font-face {
+  font-family: "manbowSolid";
+  src: url("../fonts/Manbow/manbow_solid-webfont.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "proximaNovaBold";
+  src: url("../fonts/ProximaNova/proximanova-bold-webfont.woff2") format("woff2");
+  src: url("../fonts/ProximaNova/ProximaNova-Bold.otf") format("otf");
+}
+
+@font-face {
+  font-family: "proximaNovaLight";
+  src: url("../fonts/ProximaNova/proximanova-light-webfont.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "proximaNovaSemiBold";
+  src: url("../fonts/ProximaNova/proximanova-semibold-webfont.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "latoRegular";
+  src: url("../fonts/lato/lato-regular.woff") format("woff");
+}
+
+@font-face {
+  font-family: "latoLight";
+  src: url("../fonts/lato/lato-light.woff") format("woff");
+}
+
+body {
+  font-family: var(--proximaNovaBold);
+  width: 100%;
+}
+
+nav ul li a {
+  font-family: var(--latoLight);
+}
+
+nav ul li a:hover{
+  color: var(--primary);
+} 
+
+
+.navbar-transparent {
+  background-color: transparent;
+  transition: all 0.3s ease;
+}
+
+.logoText{
+  font-family: var(--manbowSolid);
+}
+
+
+@-webkit-keyframes top-bottom {
+  from {
+      transform: translateY(-100%);
+  }
+  to {
+      transform: translateY(0%);
+  }
+}
+@keyframes top-bottom {
+  from {
+      transform: translateY(-100%);
+  }
+  to {
+      transform: translateY(0%);
+  }
+}
+
+@-webkit-keyframes left-right {
+  from {
+      transform: translateX(100%);
+  }
+  to {
+      transform: translateX(0%);
+  }
+}
+@keyframes left-right {
+  from {
+      transform: translateX(100%);
+  }
+  to {
+      transform: translateX(0%);
+  }
+}
+
+.navbar-solid {
+  background-color: white;
+  color: var(--secondary);
+  z-index: 99;
+  padding: 1rem 20rem;
+  box-shadow: 0 4px 2px -2px rgba(0,0,0,.2);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  animation: top-bottom 0.5s ease-in-out; 
+}
+
+.nav-link {
+  position: relative;
+  transition: color 0.3s;
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  bottom: -1rem;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary);
+  transition: width 0.3s, left 0.3s;
+}
+
+.nav-link:hover {
+  color: var(--primary);
+}
+
+.nav-link:hover::before {
+  width: 100%;
+  left: 0;
+}
+
+/* Hamburger */
+
+.mobile-menu {
+  position: fixed;
+  top: 3rem;
+  right: 0;
+  height: 20vh;
+  width: 100%;
+  background-color: white;
+  padding: 20px;
+  display: none;
+  /* z-index: 98; */
+}
+
+.menu-open {
+  display: block;
+  animation: left-right 0.3s ease-in-out;
+  width: 60%;
+  height: 100vh;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  font-family: var(--latoRegular);
+}
+
+.dropdown-toggle {
+  color: var(--secondary);
+  border: none;
+  cursor: pointer;
+  font-family: var(--latoLight);
+}
+
+.wrapper{
+  color: var(--secondary);
+  font-family: var(--latoLight);
+  font-size: 14px;
+}
+
+.container {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  /* height: 100%; */
+  text-align: center;
+}
+
+.h1Second{
+  font-family: var(--proximaNovaLight);
+
+}
+
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 160px;
+  padding: 8px 0;
+  background-color: #FFFFFF;
+  border-radius: 4px;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+  list-style: none;
+  display: none;
+  border-radius: 10px;
+}
+
+.dropdown-menu li {
+  padding: 8px 16px;
+  display: flex;
+  cursor: pointer;
+}
+
+.dropdown-menu li:hover{
+  display: flex;
+  background-color: var(--bg_gray);
+}
+
+
+.dropdown-menu a {
+  color: #333333;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+  white-space: nowrap;
+}
+
+
+/* dropdown tooltip */
+
+
+
+.chooseUsCard{
+  transform: translateY(0px);
+  transition: all 0.3s ease-out;
+}
+
+.chooseUsCard:hover{
+  background-color: var(--bg_gray);
+  transform: translateY(20px);
+  transition: all 0.3s ease-out;
+}
+
+.moreDetailsTxt {
+  transition: transform 0.3s ease-in-out;
+}
+
+.moreDetailsTxt:hover {
+  transform: translateX(15px);
+}
+
+p.moreDetailsTxt::after{
+  content: url('../img/arrowlong.svg');
+  display: inline-flex;
+  align-items: center;
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%;
+}
+
+.video-container video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.headerText {
+  font-family: var(--proximaNovaBold);
+  font-size: 61px;
+  line-height: 62px;
+}
+
+.headerP {
+  font-family: var(--proximaNovaLight);
+  /* font-size: 19px; */
+}
+
+button {
+  font-family: var(--proximaNovaLight);
+  font-size: 19px;
+  line-height: 62px;
+}
+
+
+/* start */
+
+
+
+/* end */
+
+/* slick slider custom */
+.slick-slide {
+  display: none;
+  float: left;
+  height: fit-content !important;
+  min-height: 1px;
+}
+
+.slick-slider .slide-item .relative {
+  max-height: 550px;
+}
+
+.bookNowMain,.mblBookNow {
+  box-shadow: 0 3px 2px -2px rgba(0,0,0,.1);
+}
+
+.bookNowLeft {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 600px;
+}
+
+.bookNowRight {
+  background-color: var(--primary);
+  width: 140px;
+  height: 96px;
+  border-radius: 0 20px 20px 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.bookNowText {
+  font-family: var(--latoLight);
+}
+/* here */
+
+.discoverSport {
+  position: relative;
+  height: 740px;
+  width: 100%;
+  background-color: var(--bg_gray);
+}
+
+.card1{
+  max-height: 300px;
+}
+
+.zoom-image {
+  transition: width 0.3s ease;
+}
+
+.zoom-image:hover {
+  width: 120%; /* Adjust the width as per your preference */
+}
+
+#sportSlider{
+  width: 100%;
+}
+
+#sportSlider .slick-slide{
+  /* margin-right: 2.5rem; */
+  /* margin-right: 2.67rem; */
+  /* padding: 0 1.335rem; */
+}
+
+#sportSlider .slick-slide:last-child {
+  margin-right: 0rem !important; 
+}
+
+i.circle {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  margin-left: 0.5em;
+}
+
+.prev-arrow{
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: transparent;
+  margin-left: 0.5em;
+}
+
+.prev-arrow:hover{
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  margin-left: 0.5em;
+}
+
+.next-arrow{
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: transparent;
+  margin-left: 0.5em;
+}
+
+.next-arrow:hover{
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  margin-left: 0.5em;
+}
+
+/* scrollbar */
+
+/* Webkit-based browsers (Chrome, Safari) */
+.overflowBtns::-webkit-scrollbar {
+  height: 4px;
+  border-radius: 50px;
+}
+
+.overflowBtns::-webkit-scrollbar-thumb {
+  background-color: var(--dark_gray);
+  border-radius: 50px;
+}
+
+.overflowBtns::-webkit-scrollbar-track {
+  background-color: var(--bg_gray);
+  border-radius: 50px;
+}
+
+/* Firefox */
+.overflowBtns {
+  scrollbar-width: 4px;
+  scrollbar-color: var(--dark_gray);
+}
+
+.overflowBtns::-moz-scrollbar {
+  height: 4px;
+  border-radius: 50px;
+}
+
+.overflowBtns::-moz-scrollbar-thumb {
+  background-color: var(--secondary);
+  border-radius: 50px;
+}
+
+.overflowBtns::-moz-scrollbar-track {
+  background-color: var(--bg_gray);
+  border-radius: 50px;
+}
+
+.explore{
+  margin-bottom: 277px;
+}
+
+.lastExplore{
+  position: absolute;
+  top: -147px;
+}
+
+footer ul>li>a {
+  font-family: var(--latoLight);
+  color: var(--secondary);
+  /* font-size: 17px; */
+}
+
+section.copyright{
+  font-family: var(--latoRegular);
+  color: var(--secondary);
+  font-size: 17px;
+}
+
+footer ul>li>a:hover{
+  color: var(--primary);
+}
+
+/* .footerBook{
+  max-width: 350px;
+} */
+
+.socialCircle {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: black;
+  color: white;
+  margin-right: 0.5em;
+  margin-top: 0.5em;
+}
+
+.socialCircle:hover{
+  background-color: var(--primary);
+}
+
+/* explorecard */
+
+.exploreCard {
+  position: relative;
+  display: inline-block;
+}
+
+/* .exploreCard img.exploreCard1{
+  max-height: 275px;
+  max-width: 413px;
+  border-radius: 28px;
+}
+
+.exploreCard img.exploreCard2{
+  max-height: 533px;
+  max-width: 400px;
+  border-radius: 28px;
+} */
+
+.exploreCard img.exploreCard1{
+  height: auto;
+  width: 100%;
+  min-height: 252px;
+  border-radius: 28px;
+}
+
+.exploreCard img.exploreCard2{
+  height: auto;
+  width: 100%;
+  min-height: 533px;
+  border-radius: 28px;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  border-radius: 28px;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease-in-out;
+}
+
+.overlay .text p::before{
+  content: url('../img/pin.svg');
+
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 0.5em;
+}
+
+.exploreCard:hover .overlay {
+  opacity: 1;
+}
+
+.text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 24px;
+  text-align: center;
+}
+
+.sportSlide-item {
+  position: relative;
+  overflow: hidden;
+}
+
+.minus, .plus, .num {
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.sportSlide-item .over {
+  position: absolute;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+}
+
+.sportSlide-item:hover .over{
+  opacity: 1;
+}
+
+
+
+
+

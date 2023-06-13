@@ -1,0 +1,190 @@
+@media (max-width : 640px) {
+    .slick-slider .slide-item .relative{
+        height: 100vh;
+    }
+
+    .logoText{
+        font-family: var(--manbowSolid);
+      }
+    
+    .explore{
+        margin-bottom: 150px;
+    }
+
+    .navbar-solid {
+        padding: 1rem 2.5rem;
+    }
+
+    i.circle {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background-color: var(--primary);
+        margin-left: 0.5em;
+    }
+    
+    .prev-arrow, .next-arrow{
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background-color: transparent;
+        margin-left: 0.5em;
+    }
+    
+    .prev-arrow:hover, .next-arrow:hover{
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background-color: var(--primary);
+        margin-left: 0.5em;
+    }
+
+    #sportSlider .slick-slide{
+        /* margin-right: 1.8rem;
+        margin-left: 1.8rem; */
+      }
+}
+
+@media (max-width : 768px) {
+    .navbar-solid {
+        padding: 1rem 2.5rem;
+    }
+
+    i.circle {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background-color: var(--primary);
+        margin-left: 0.5em;
+    }
+    
+    .prev-arrow, .next-arrow{
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background-color: transparent;
+        margin-left: 0.5em;
+    }
+    
+    .prev-arrow:hover, .next-arrow:hover{
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background-color: var(--primary);
+        margin-left: 0.5em;
+    }
+}
+
+@media (max-width : 1024px) {
+
+}
+
+@media (min-width : 1280px) {
+
+}
+
+@media (max-width : 1536px) {
+
+
+}
+
+/* min */
+
+@media (min-width : 640px){
+    .minus, .plus {
+        padding: 0.2rem 0.5rem;
+      }
+
+}
+
+@media (min-width : 768px){
+    .navbar-solid {
+        padding: 0.5rem 6rem;
+    }
+}
+
+@media (min-width : 1024px){
+    .navbar-solid {
+        padding: 0.5rem 9rem;
+    }
+}
+
+@media (min-width : 1280px){
+    .navbar-solid {
+        padding: 0.5rem 12rem;
+    }
+}
+
+@media (min-width : 1536px){
+    .navbar-solid {
+        padding: 0.5rem 13rem;
+    }
+
+    footer ul>li>a {
+        font-family: var(--latoLight);
+        color: var(--secondary);
+        font-size: 15px;
+      
+        margin-bottom: 0.5em;
+      }
+}
+
+@media (min-width : 1920px){
+    .navbar-solid {
+        padding: 0.5rem 20rem;
+    }
+}
+
+/* @media (min-width:1500px) and(max-width: 1660px) {
+    .exploreCard img.exploreCard1{
+        height: auto;
+        width: 100%;
+        min-height: 220px;
+        min-width:350px;
+        border-radius: 28px;
+      }
+      
+      .exploreCard img.exploreCard2{
+        height: auto;
+        width: 100%;
+        min-height: 465px;
+        min-width: 350px;
+        border-radius: 28px;
+      }
+} */
+
+/* @media (min-width: 1400px) and (max-width:1500px) {
+    .exploreCard img.exploreCard1{
+        height: auto;
+        width: 100%;
+        min-height: 190px;
+        min-width: 300px;
+        border-radius: 28px;
+      }
+      
+      .exploreCard img.exploreCard2{
+        height: auto;
+        width: 100%;
+        min-height: 400px;
+        min-width: 300px;
+        border-radius: 28px;
+      }
+} */
