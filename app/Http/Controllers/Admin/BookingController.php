@@ -16,7 +16,7 @@ class BookingController extends Controller
     {
         $bookings = Booking::latest()->paginate(5);
     
-        return view('admin.bookings.index',compact('bookings'))
+        return view('admin.bookings.index', ('bookings'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -148,5 +148,18 @@ class BookingController extends Controller
      
         return redirect()->route('bookings.index')
                         ->with('success','Booking deleted successfully');
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->input('user');
+
+        $details = Booking::with('user')
+            ->whereHas('user', function ($q) use ($search) {
+                $q->where('title', "LIKE", "%{$search}%");
+            })
+            ->get();
+
+        return  view('admin.bookings.index', compact('details'));
     }
 }

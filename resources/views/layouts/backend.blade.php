@@ -63,6 +63,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{asset('backend/css/picker.date.min.css')}}">
   <link rel="stylesheet" href="{{asset('backend/css/custom.css')}}">
 
+  <!-- Calendar -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+
+
   @yield('styles')
 </head>
 <body class="hold-transition sidebar-mini">
@@ -194,18 +200,29 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </ul>
           </li>
           <li class="nav-item">
-            <a href="bookings" class="nav-link">
-            <i class="fas fa-shopping-bag"></i>
-              <p>Bookings</p>
-            </a>
+                <a href="{{ route('bookings.index')}}" class="nav-link <?php echo activeMenu($route, ['bookings.create','bookings.index','bookings.edit']); ?>">
+                  <i class="fas fa-shopping-bag"></i>
+                  <p>Bookings</p>
+                </a>
           </li>
           <li class="nav-item">
-            <a href="coupons" class="nav-link">
-            <i class="fab fa-buffer"></i>
-              <p>Coupons</p>
-            </a>
+                <a href="{{ route('coupons.index')}}" class="nav-link <?php echo activeMenu($route, ['coupons.create','coupons.index','coupons.edit']); ?>">
+                  <i class="fab fa-buffer"></i>
+                  <p>Coupons</p>
+                </a>
           </li>
-
+          <li class="nav-item">
+                <a href="{{ route('categories.index')}}" class="nav-link <?php echo activeMenu($route, ['categories.create','categories.index','categories.edit']); ?>">
+                  <i class="fas fa-folder"></i>
+                  <p>Categories</p>
+                </a>
+          </li>
+          <li class="nav-item">
+                <a href="{{ route('tags.index')}}" class="nav-link <?php echo activeMenu($route, ['tags.create','tags.index','tags.edit']); ?>">
+                  <i class="fas fa-tag"></i>
+                  <p>Tags</p>
+                </a>
+          </li>
           <li class="nav-item has-treeview <?php echo openMenu($route, ['settings.profile']); ?>">
             <a href="#" class="nav-link <?php echo activeMenu($route, ['settings.profile']); ?>">
               <i class="nav-icon fas fa-th"></i>

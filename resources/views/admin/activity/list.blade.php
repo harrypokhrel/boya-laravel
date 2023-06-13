@@ -11,7 +11,7 @@
 </section>
 
 <section class="content-filter filter__section">
-	<form action="{{ route('activity.search') }}" method="POST" role="search">
+	<form action="{{ route('activity.')search }}" method="POST" role="search">
 		{{ csrf_field() }}
 		<div class="input-group">
 			<input type="text" class="form-control" name="company" placeholder="Search by company" value="<?php echo(isset($_POST['company']))?$_POST['company']:'';?>">

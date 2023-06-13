@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\TagController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,11 +39,14 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::resource('activity', 'App\Http\Controllers\Admin\ActivityController');
     Route::resource('bookings', 'App\Http\Controllers\Admin\BookingController');
+    Route::post('booking/search', 'App\Http\Controllers\Admin\BookingController@search')->name('bookings.search');
     Route::get('/bookings/calendar', [BookingController::class, 'calendarView'])->name('bookings.calendar');
     Route::get('/bookings/export', [BookingController::class, 'exportCSV'])->name('bookings.export');
     Route::put('activity', 'App\Http\Controllers\Admin\ActivityController@updateImageOrder')->name('activity.updateImageOrder');
     Route::delete('activity', 'App\Http\Controllers\Admin\ActivityController@deleteImage')->name('activity.deleteImage');
     Route::post('activity/search', 'App\Http\Controllers\Admin\ActivityController@search')->name('activity.search');
+    Route::resource('categories', 'App\Http\Controllers\Admin\CategoryController');
+    Route::resource('tags', 'App\Http\Controllers\Admin\TagController');
 
     Route::resource('coupons', 'App\Http\Controllers\Admin\CouponController');
 

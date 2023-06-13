@@ -1,6 +1,14 @@
 @extends('layouts.backend')
 
 @section('content')
+    <section class="content-header">
+        <h1>Boya Bookings</h1>
+        <ol class="breadcrumb">
+            <li><a href="">Dashboard</a></li>
+            <li><a href="">Bookings</a></li>
+            <li><a href="">List</a></li>
+        </ol>
+    </section>
     <div class="container">
         <form action="{{ route('bookings.index') }}" method="GET">
             <div class="form-row">
@@ -115,11 +123,11 @@
                         <td>{{ $booking->status }}</td>
                         <td>
                             <!-- <a href="{{ route('bookings.show', $booking->id) }}" class="btn btn-info">View</a> -->
-                            <a href="{{ route('bookings.edit', $booking->id) }}" class="btn btn-primary">Edit</a>
+                            <a href="{{ route('bookings.edit', $booking->id) }}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
                             <form action="{{ route('bookings.destroy', $booking->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Delete</button>
+                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
                             </form>
                         </td>
                     </tr>
