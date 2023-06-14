@@ -39,7 +39,7 @@ class CategoryController extends Controller
     
         Categories::create($request->all());
      
-        return redirect()->route('admin.categories.index')
+        return view('admin.categories.index')
                         ->with('success','categories created successfully.');
     }
 

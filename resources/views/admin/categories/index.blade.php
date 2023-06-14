@@ -25,12 +25,12 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($categories as $categories)
+                @foreach($categories as $category)
                     <tr>
-                        <td>{{ $categories->category_name }}</td>
-                        <td>{{ $categories->parent_cat_id }}</td>
-                        <td>{{ $categories->image }}</td>
-                        <td>{{ $categories->status }}</td>
+                        <td>{{ $category->category_name }}</td>
+                        <td>{{ $category->parent_cat_id }}</td>
+                        <td>{{ $category->image }}</td>
+                        <td>{{ $category->status }}</td>
                         <td>
                             <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
                             <form action="{{ route('categories.destroy', $category->id) }}" method="POST" style="display:inline;">
