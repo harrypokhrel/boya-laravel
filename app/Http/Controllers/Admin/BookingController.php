@@ -16,16 +16,19 @@ class BookingController extends Controller
     {
         $bookings = Booking::latest()->paginate(5);
     
-        return view('admin.bookings.index', ('bookings'))
+        return view('admin.bookings.index', ['bookings' => $bookings])
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
+    
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view('admin.bookings.create');
+        $company::all();
+        $activities::all();
+        return view('admin.bookings.create', compact('company','activities'));
     }
 
     /**
@@ -66,18 +69,19 @@ class BookingController extends Controller
 }
 
 
-    public function calendarView()
-    {
-         $bookings = Booking::all();
+public function calendarView()
+{
+    $bookings = Booking::all();
 
-        return view('bookings.calendar', compact('bookings'));
-    }
+    return view('admin.bookings.calendar', compact('bookings'));
+}
+
 
     public function exportCSV()
     {
         $fileName = 'bookings.csv';
 
-        return Excel::download(new BookingsExport, $fileName);
+          return (new BookingsExport)->download($fileName);
     }
 
     /**
@@ -93,7 +97,9 @@ class BookingController extends Controller
      */
     public function edit(Booking $booking)
     {
-        return view ('admin.bookings.edit',compact('booking'));
+        $company::all();
+        $activities::all();
+        return view ('admin.bookings.edit',compact('booking','company','activities'));
     }
 
     /**

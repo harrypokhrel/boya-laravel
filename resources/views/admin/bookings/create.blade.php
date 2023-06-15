@@ -58,16 +58,17 @@
                 </div>
             </div>
             <div class="form-row">
-            <div class="col-6">
+                <div class="col-6">
                     <div class="form-group">
                         <label for="company_name">COMPANY NAME</label>
-                            <select id="company_name" name="company_name" class="form-control" data-selected="">
+                        <input type="text" name="company_name" id="company_name" class="form-control" required>
+                            <!-- <select id="company_name" name="company_name" class="form-control" data-selected="">
                                 <option value="">-- Select Company --</option>
                                     <option value="6">Gel Ball</option>
                                     <option value="7">Football Zorbing</option>
                                     <option value="8">Tube Sliding</option>
                                     <option value="9">Mountain Slide Zorbing</option>
-                            </select>
+                            </select> -->
                     </div>
                 </div>
                 <div class="col-6">
@@ -120,7 +121,7 @@
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="payment_method" id="payment_method" value="payment_method" required>
-                            <label class="form-check-label" for="cash">Cash</label>
+                            <label class="form-check-label" for="offline">Offiline</label>
                         </div>
                     </div>
                 </div>

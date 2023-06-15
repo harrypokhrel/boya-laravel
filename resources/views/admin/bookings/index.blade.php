@@ -84,8 +84,8 @@
     <div class="container">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h1 class="mb-0">Bookings</h1>
-            <a href="{{ route('bookings.calendar') }}" class="btn btn-primary mr-2">Calendar View</a>
-            <a href="{{ route('bookings.export') }}" class="btn btn-primary">Export CSV</a>
+            <a href="{{ route('bookings.calendar') }}" class="btn btn-primary">Calendar View</a>
+            <a href="{{ route('bookings.exportCSV') }}" class="btn btn-primary">Export CSV</a>
             <a href="{{ route('bookings.create') }}" class="btn btn-primary">Add New Booking</a>
         </div>
 

@@ -27,4 +27,16 @@ class Booking extends Model
         'image'
 
     ];
+
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
+
+
+    public function activity()
+    {
+        return $this->hasMAny(Activity::class);
+    }
 }
