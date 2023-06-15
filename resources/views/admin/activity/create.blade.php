@@ -233,9 +233,9 @@
                         </div>
 
                         <div class="col-md-3">
-                            <div class="tags__select w-100" id="tags">
-                                <label for="tags">TAGS</label>
-                                <select id="tags" name="tags" class="w-100 form-control">
+                            <div class="tag__select w-100" id="tag">
+                                <label for="tag">TAGS</label>
+                                <select id="tag" name="tag" class="w-100 form-control">
                                     <option value="">-- Select Tag --</option>
                                     <?php foreach ($tags as $tag){ ?>
                                         <option value="{{ $tag->id }}">{{ $tag->tag_name }}</option>

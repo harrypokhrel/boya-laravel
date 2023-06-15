@@ -21,3 +21,13 @@ div#image_preview_2 {
     display: inline-flex;
     margin-right: 10px !important;
 }
+
+a.btn.btn-danger.btn-md.btn-delete.delete_popup {
+    background-color: var(--primary);
+    border: transparent;
+    outline: transparent;
+    width: fit-content;
+    padding: 8px 24px;
+    color: #fff;
+    border-radius: 50px;
+}

@@ -35,6 +35,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::group(['middleware' => ['role:Admin']], function () {
         Route::resource('users', 'App\Http\Controllers\Admin\UserController');
         Route::post('users/search', 'App\Http\Controllers\Admin\UserController@search')->name('users.search');
+        Route::delete('users/delete/{id}', 'App\Http\Controllers\Admin\UserController@delete')->name('users.delete');
     });
 
     Route::resource('activity', 'App\Http\Controllers\Admin\ActivityController');

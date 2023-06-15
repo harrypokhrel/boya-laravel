@@ -27,7 +27,7 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        $details = Activity::orderBy('status', 'Asc')->get();
+        $details = Activity::get();
         return  view('admin.activity.list', compact('details'));
     }
 
@@ -233,7 +233,10 @@ class ActivityController extends Controller
     {
         $activity = Activity::findOrFail($id);
         $activity->delete();
-        return redirect()->back()->with('message', 'Activity deleted successfully');
+        $data = [ 
+            'success' => true
+        ];
+        return response()->json($data);
     }
 
     public function rules($oldId = null, $sameSlugVal=false){

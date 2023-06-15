@@ -22,8 +22,10 @@ return new class extends Migration
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
 
-            $table->text('tag')->nullable();
-            $table->text('category')->nullable();
+            $table->unsignedBigInteger('tag_id');
+            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
 
             $table->string('featured_image')->nullable();
             $table->text('description')->nullable();

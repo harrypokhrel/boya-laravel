@@ -89,7 +89,10 @@ class CompanyController extends Controller
     {
         $company = Company::findOrFail($id);
         $company->delete();
-        return redirect()->back()->with('message', 'Company deleted successfully');
+        $data = [ 
+            'success' => true
+        ];
+        return response()->json($data);
     }
 
     public function rules($oldId = null, $sameSlugVal=false){

@@ -277,9 +277,9 @@
                         </div>
 
                         <div class="col-md-3">
-                            <div class="tags__select w-100" id="tags">
-                                <label for="tags">TAGS</label>
-                                <select id="tags" name="tag" class="w-100">
+                            <div class="tag__select w-100" id="tag">
+                                <label for="tag">TAGS</label>
+                                <select id="tag" name="tag" class="w-100">
                                     <?php foreach ($tags as $tag){ ?>
                                         <option value="{{ $tag->id }}" {{ $tag->id == $detail->tag ? 'selected="selected"' : '' }}>{{ $tag->tag_name }}</option>
                                     <?php } ?>
@@ -288,7 +288,7 @@
                         </div>
 
                         <div class="col-md-3">
-                            <div class="category__select w-100" id="tags">
+                            <div class="category__select w-100" id="category">
                                 <label for="category">CATEGORY</label>
                                 <select id="category" name="category" class="w-100">
                                     <?php foreach ($categories as $category){ ?>
@@ -377,7 +377,7 @@
                             <div class="col-md-12">
                                 <div class="w-100" id="group__discount__price">
                                     <?php $i = 1;
-                                    if($detail->shift_price){
+                                    if(!empty($detail->shift_price) && ($detail->shift_price != 'null')){
                                     $shift_timings    =   json_decode($detail->shift_price, true);
                                     // var_dump($shift_timings);
                                     foreach($shift_timings as $shift_timing){

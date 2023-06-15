@@ -84,10 +84,7 @@
 				            <td>
 			            	<i><nobr>
 				            	<a class="btn btn-md btn-primary edit" href="{{route('users.edit',$detail->id)}}" title="Edit"><i class="fas fa-edit"></i></a>
-				            	<form method= "post" action="{{route('users.destroy',$detail->id)}}" class="delete" style="display: inline-block;">
-                				{{csrf_field()}}
-                				<input type="hidden" name="_method" value="DELETE">
-               					<button type="submit" onclick="return confirm('Are you sure to delete this record?');" class="btn btn-danger btn-md btn-delete" title="Delete"><i class="fa fa-trash"></i></button>
+               					<a class="btn btn-danger btn-md btn-delete delete_popup" data-id="{{$detail->id}}" title="Delete"><i class="fa fa-trash"></i></a>
                				    </form></nobr>
                				</i>
 				            </td>
@@ -109,10 +106,56 @@ $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
-})
-
-$(document).ready(function(){
-	$("#admin-lte").DataTable();
 });
+
+$('body').on('click', '.delete_popup', function () {
+	Swal.fire({
+		title: 'Are you sure?',
+		text: "You won't be able to revert this!",
+		icon: 'warning',
+		showCancelButton: true,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: 'Yes, delete it!'
+	}).then((result) => {
+		if (result.isConfirmed) {
+			Swal.fire(
+			'Deleted!',
+			'Your data has been deleted.',
+			'success'
+			)
+
+			$.ajaxSetup({
+				headers: {
+					'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+				}
+			});
+
+			var formData = {
+				postKoId: $(this).data("id"),
+			};
+			var postID = $(this).data("id");
+			var type = "DELETE";
+			var ajaxurl = "{{ route('users.destroy', ":id") }}";
+        	ajaxurl = ajaxurl.replace(':id', postID);
+
+			$.ajax({
+				type: type,
+				url: ajaxurl,
+				data: formData,
+				dataType: 'json',
+				success: function (data) {
+					if (data.success == true) {
+						$('tr#' + postID ).remove();
+					}
+				},
+				error: function (data) {
+					console.log('Error:', data);
+				}
+			});
+		}
+	});
+});
+
 </script>
 @endpush
