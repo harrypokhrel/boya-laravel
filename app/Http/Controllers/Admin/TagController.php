@@ -50,7 +50,7 @@ class TagController extends Controller
      */
     public function show(string $id)
     {
-      return view('admin.tags.show',compact('tags')); 
+    //   return view('admin.tags.show',compact('id')); 
     }
 
     /**
@@ -84,11 +84,13 @@ class TagController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
-    {
-        $tags->delete();
-    
-        return redirect()->route('admin.tags.index')
-                        ->with('success','Tag deleted successfully'); 
-    }
+{
+    $tags = Tag::findOrFail($id);
+    $tags->delete();
+
+    return redirect()->route('tags.index')
+                    ->with('success', 'Tag deleted successfully'); 
+}
+
 }
 

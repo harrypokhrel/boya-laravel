@@ -2,10 +2,10 @@
 
 @section('content')
     <section class="content-header">
-        <h1>Boya TagS</h1>
+        <h1>Boya Tags</h1>
         <ol class="breadcrumb">
             <li><a href="">Dashboard</a></li>
-            <li><a href="">TAGS</a></li>
+            <li><a href="">Tags</a></li>
             <li><a href="">List</a></li>
         </ol>
     </section>

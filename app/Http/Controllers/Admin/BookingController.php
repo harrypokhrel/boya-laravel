@@ -34,7 +34,6 @@ class BookingController extends Controller
     public function store(Request $request)
 {
     $request->validate([
-        // 'booking_id'     => 'required',
         'activity_name'  => 'nullable',
         'first_name'     => 'nullable',
         'last_name'      => 'nullable',
