@@ -46,6 +46,11 @@ return new class extends Migration
             $table->time('opening_hour')->nullable();
             $table->time('closing_hour')->nullable();
 
+            $table->integer('group_discount')->unsigned()->default(0);
+            $table->string('discount_type')->nullable();
+            $table->integer('discount_on_weekends')->unsigned()->default(0);
+            $table->text('shift_discounts')->nullable();
+
             $table->integer('approved')->unsigned()->default(0);
             $table->integer('status')->unsigned()->default(0);
             $table->text('rejection_message')->nullable();

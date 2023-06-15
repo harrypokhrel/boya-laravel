@@ -53,6 +53,75 @@
         margin-top: -100px;
         margin-left: 136px!important;
     }
+
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+    }
+
+    .switch input { 
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    input:checked + .slider {
+        background-color: #000000;
+    }
+
+    input:focus + .slider {
+        box-shadow: 0 0 1px #000000;
+    }
+
+    input:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 34px;
+    }
+
+    .slider.round:before {
+        border-radius: 50%;
+    }
+
+    b.shift__title {
+        display: inline-block;
+        width: 80px;
+    }
+
+    .timing_price_ul_li_col div {
+        margin-bottom: 10px;
+    }
 </style>
 @endsection
 
@@ -110,9 +179,9 @@
                         <div class="col-md-6">
                             <div class="form__wrap">
                                 <label for="show_in_homepage">Show in homepage?</label><br>
-                                <input type="radio" id="hp_yes" name="show_in_homepage" value="1">
+                                <input type="radio" id="hp_yes" name="show_in_homepage" value="1" {{ $detail->show_in_homepage == 1 ? 'checked="checked"' : '' }}>
                                 <label for="hp_yes">YES</label>
-                                <input type="radio" id="hp_no" name="show_in_homepage" value="0" checked="checked">
+                                <input type="radio" id="hp_no" name="show_in_homepage" value="0" {{ $detail->show_in_homepage == 0 ? 'checked="checked"' : '' }}>
                                 <label for="hp_no">NO</label>
                             </div>
                         </div>
@@ -175,14 +244,14 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form__wrap">
-                                <label for="opening_hour">Opening Hour [24 hours format e.g. 15:00]</label>
-                                <input type="text" id="opening_hour" name="opening_hour" placeholder="Opening Hour" class='w-100' value="{{$detail->opening_hour}}">
+                                <label for="opening_hour">Opening Hour</label>
+                                <input type="text" id="opening_hour" name="opening_hour" placeholder="Opening Hour" class='w-100 timepicker' value="{{$detail->opening_hour}}">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form__wrap">
-                                <label for="closing_hour">Closing Hour [24 hours format e.g. 15:00]</label>
-                                <input type="text" id="closing_hour" name="closing_hour" placeholder="Closing Hour" class='w-100' value="{{$detail->closing_hour}}">
+                                <label for="closing_hour">Closing Hour</label>
+                                <input type="text" id="closing_hour" name="closing_hour" placeholder="Closing Hour" class='w-100 timepicker' value="{{$detail->closing_hour}}">
                             </div>
                         </div>
 
@@ -210,8 +279,10 @@
                         <div class="col-md-3">
                             <div class="tags__select w-100" id="tags">
                                 <label for="tags">TAGS</label>
-                                <select id="tags" name="tags[]" class="w-100">
-                                    <option value="0">tags</option>
+                                <select id="tags" name="tag" class="w-100">
+                                    <?php foreach ($tags as $tag){ ?>
+                                        <option value="{{ $tag->id }}" {{ $tag->id == $detail->tag ? 'selected="selected"' : '' }}>{{ $tag->tag_name }}</option>
+                                    <?php } ?>
                                 </select>
                             </div>
                         </div>
@@ -219,8 +290,10 @@
                         <div class="col-md-3">
                             <div class="category__select w-100" id="tags">
                                 <label for="category">CATEGORY</label>
-                                <select id="category" name="category[]" class="w-100">
-                                    <option value="0">category</option>
+                                <select id="category" name="category" class="w-100">
+                                    <?php foreach ($categories as $category){ ?>
+                                        <option value="{{ $category->id }}" {{ $category->id == $detail->category ? 'selected="selected"' : '' }}>{{ $category->category_name }}</option>
+                                    <?php } ?>
                                 </select>
                             </div>
                         </div>
@@ -263,6 +336,59 @@
                                     </li>
                                     @endforeach
                                     </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <h2>Discounts</h2>
+                        </div>
+
+                        <div class=" row discount__group col-md-12">
+                            <div class="col-md-12">
+                                <div class="group_discount__select w-100" id="group_discount">
+                                    <label for="group_discount">Group discount available?</label>
+                                    <label class="switch">
+                                        <input type="checkbox" name="enable_shift_price" {{ $detail->enable_shift_price == 1 ? 'checked' : '' }}>
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-12">
+                                <div class="form__wrap">
+                                    <input type="radio" id="percentage" name="shift_discount_type" value="percentage" {{ $detail->shift_discount_type == 'percentage' ? 'checked="checked"' : '' }}>
+                                    <label for="percentage">Percentage Discount</label>
+                                    <input type="radio" id="fixed" name="shift_discount_type" value="fixed" {{ $detail->shift_discount_type == 'fixed' ? 'checked="checked"' : '' }}>
+                                    <label for="fixed">Fixed Amount</label>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-12">
+                                <div class="shift_on_weekends__select w-100" id="shift_on_weekends">
+                                    <label for="shift_on_weekends">Discount available for weekends?</label>
+                                    <label class="switch">
+                                        <input type="checkbox" name="shift_on_weekends" {{ $detail->shift_on_weekends == 1 ? 'checked' : '' }}>
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="w-100" id="group__discount__price">
+                                    <?php $i = 1;
+                                    if($detail->shift_price){
+                                    $shift_timings    =   json_decode($detail->shift_price, true);
+                                    // var_dump($shift_timings);
+                                    foreach($shift_timings as $shift_timing){
+                                        //var_dump($shift_timing); ?>
+                                        <div>
+                                            <b class="shift__title"><?php echo $shift_timing[1];?></b>
+                                            <input type="hidden" id="sp_<?php echo $i;?>_1" class="shift_timings_list" name="sp[<?php echo $i;?>][1]" placeholder="Eg: Morning" value="<?php echo $shift_timing[1];?>">
+                                            <input type="text" id="sp_<?php echo $i;?>_2" class="shift_timings_list" name="sp[<?php echo $i;?>][2]" placeholder="Eg: 5% or 500" value="<?php echo $shift_timing[2];?>">
+                                        </div>
+                                        <?php $i++; } ?>
+                                    <?php } ?>
                                 </div>
                             </div>
                         </div>
@@ -318,6 +444,39 @@
         }
     }
 
+    $('select#activities_owner').change(function(){
+        $('#group__discount__price').html('').prepend('<img src="{{asset('images/animated-gif.gif')}}" width="30px">');
+        
+        var owner_id = $(this).val();
+        
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var formData = {
+            owner_id: owner_id,
+        };
+
+        var type = "PUT";
+        var ajaxurl = "{{ route('activity.getShiftTiming', ":id") }}";
+        ajaxurl = ajaxurl.replace(':id', owner_id);
+
+        $.ajax({
+            type: type,
+            url: ajaxurl,
+            data: formData,
+            dataType: 'json',
+            success: function (data) {
+                $('#group__discount__price').html(data);
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    });
+
     // reorder image codes
     $('a#saveReorder').hide();
     $('div#reorderHelperWarning').hide();
@@ -333,7 +492,7 @@
             $('#reorderHelper').hide();
             $('#reorderHelperWarning').show();
             if( !$("#saveReorder i").length ){
-                $(this).html('').prepend('<img src="https://geteverywhere.ae/beta/wp-content/uploads/2023/03/animated-gif.gif" width="30px">');
+                $(this).html('').prepend('<img src="{{asset('images/animated-gif.gif')}}" width="30px">');
                 $("ul.reorder-photos-list").sortable({ 
                     cancel: ".disable-sort" 
                 });
@@ -424,6 +583,13 @@
                 });
             }
         });
+    });
+
+    $('.timepicker').pickatime({
+        format: 'HH:i',
+        interval: 30,
+        min: [6,0],
+        max: [22,0]
     });
 </script>
 @endpush

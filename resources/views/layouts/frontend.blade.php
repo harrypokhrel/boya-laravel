@@ -69,9 +69,9 @@
                   <div class="dropdown">
                     <select id="category" name="category">
                         <option value="">Select</option>
-                        <option value="Category 1">Category 1</option>
-                        <option value="Category 2">Category 2</option>
-                        <option value="Category 3">Category 3</option>
+                        <?php foreach ($categories as $category){ ?>
+                            <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                        <?php } ?>
                     </select>
                   </div>
                 </label>

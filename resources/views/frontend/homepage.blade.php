@@ -204,22 +204,24 @@
 </div>
 
 <div class="relative flex flex-col justify-center">
-  <div
-    class="columns-1 sm:columns-2 xl:columns-3 2xl:columns-3 gap-5 [column-fill:_balance] box-border mx-auto before:box-inherit after:box-inherit">
+  <div class="columns-1 sm:columns-2 xl:columns-3 2xl:columns-3 gap-5 [column-fill:_balance] box-border mx-auto before:box-inherit after:box-inherit">
+    
+    <?php foreach ($activities as $activity){ ?>
     <div class="break-inside-avoid" data-category="transition">
         <div class="exploreCard mb-5">
-          <img src="https://cdn.pixabay.com/photo/2019/05/28/00/13/surfer-4234061_1280.jpg" class="exploreCard1 object-cover" alt="" />
+          <img src="{{asset('images/activities/featured/'.$activity->featured_image)}}" class="exploreCard1 object-cover" alt="" />
           <div class="overlay">
             <div class="text">
-              <h4 class="font-semibold text-2xl">Jet Ski</h4>
-              <p class="font-normal text-base whitespace-nowrap">Dubai Marina, Dubai</p>
+              <h4 class="font-semibold text-2xl">{{$activity->title}}</h4>
+              <p class="font-normal text-base whitespace-nowrap">{{$activity->location}}</p>
               <button class="w-28 h-10 bg-white rounded-customsm mt-3 text-secondary hover:bg-primary hover:text-white">
-                <a href=""><h4 class="text-xl font-normal">Book Now</h4></a>
+                <a href="{{url('/activities/'.$activity->id)}}"><h4 class="text-xl font-normal">Book Now</h4></a>
               </button>
             </div>
         </div>
+      </div>
     </div>
-  </div>
+    <?php } ?>
     <div class="break-inside-avoid">
       <div class="exploreCard mb-5">
         <img src="https://abudhabimarine.ae/img/containers/assets/ski-boarding-abu-dhabi-marine-1.jpg/0c79a4744a8fc59bb1654645871b572c.webp" class="exploreCard2 object-cover" alt="" />
@@ -231,8 +233,8 @@
               <a href=""><h4 class="text-xl font-normal">Book Now</h4></a>
             </button>
           </div>
+        </div>
       </div>
-  </div>
     </div>
     <div class="break-inside-avoid">
       <div class="exploreCard mb-5">
@@ -245,8 +247,8 @@
               <a href=""><h4 class="text-xl font-normal">Book Now</h4></a>
             </button>
           </div>
+        </div>
       </div>
-  </div>
     </div>
     <div class="break-inside-avoid">
       <div class="exploreCard mb-5">
@@ -259,8 +261,8 @@
               <a href=""><h4 class="text-xl font-normal">Book Now</h4></a>
             </button>
           </div>
+        </div>
       </div>
-  </div>
     </div>
     <div class="break-inside-avoid">
       <div class="exploreCard mb-5">
@@ -273,9 +275,9 @@
               <a href=""><h4 class="text-xl font-normal">Book Now</h4></a>
             </button>
           </div>
+        </div>
       </div>
-  </div>
-  </div>
+    </div>
 
   <div class="break-inside-avoid">
     <div class="exploreCard mb-5">
