@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Activity;
+use App\Models\Categories;
 use Image;
 use Inertia\Inertia;
 
@@ -16,7 +17,8 @@ class HomepageController extends Controller
     public function index()
     {
         $activities = Activity::where('approved', '1')->get();
-        return view('frontend.homepage', compact('activities'));
+        $categories = Categories::where('status', 'active')->get();
+        return view('frontend.homepage', compact('activities', 'categories'));
     }
 
     /**

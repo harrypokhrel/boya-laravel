@@ -1,0 +1,239 @@
+:root {
+    --primary: #f1610d;
+    --secondary: #1a265b;
+    --bg_gray: #f6f6f6;
+    --red: #ff0000;
+    --dark_gray: #7b7b7b;
+    --manbowSolid: 'manbowSolid', sans-serif;
+    --proximaNovaBold: 'proximaNovaBold', sans-serif;
+    --proximaNovaLight: 'proximaNovaLight', sans-serif;
+    --latoRegular: 'latoRegular', sans-serif;
+    --latoLight: 'latoLight', sans-serif;
+    --proximaNovaSemiBold: 'proximaNovaSemiBold', sans-serif;
+  
+  }
+
+@font-face {
+    font-family: 'logoFont';
+    src: url("../fonts/Manbow/manbow_solid-webfont.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "proximaNovaBold";
+    src: url("../fonts/ProximaNova/proximanova-bold-webfont.woff2") format("woff2");
+    src: url("../fonts/ProximaNova/ProximaNova-Bold.otf") format("otf");
+  }
+  
+  @font-face {
+    font-family: "proximaNovaLight";
+    src: url("../fonts/ProximaNova/proximanova-light-webfont.woff2") format("woff2");
+  }
+  
+  @font-face {
+    font-family: "proximaNovaSemiBold";
+    src: url("../fonts/ProximaNova/proximanova-semibold-webfont.woff2") format("woff2");
+  }
+  
+  @font-face {
+    font-family: "latoRegular";
+    src: url("../fonts/lato/lato-regular.woff") format("woff");
+  }
+  
+  @font-face {
+    font-family: "latoLight";
+    src: url("../fonts/lato/lato-light.woff") format("woff");
+  }
+
+  body {
+    font-family: var(--latoRegular);
+    overflow-x: hidden;
+  }
+  
+  nav ul li a {
+    font-family: var(--latoRegular);
+  }
+  
+  /* when active nav-links */
+  nav ul li a:hover,
+  nav ul li a.active{
+    color: var(--primary) !important;
+  } 
+  
+nav a.navbar-brand{
+    font-family: 'logoFont';
+    color: var(--secondary);
+    font-size: 2rem;
+}
+
+.btnLogin,
+.btn.btn-primary{
+    background-color: var(--primary);
+    border: transparent;
+    outline: transparent;
+    width: fit-content;
+    padding: 8px 24px;
+    border-radius: 50px;
+}
+
+.btnLogin:hover,
+.btn.btn-primary:hover{
+    background-color: var(--secondary);
+}
+
+.card-header{
+    text-align: left;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+/* sidebar icons */
+
+.sidebar .brand-text{
+    font-family: 'logoFont';
+    color: white;
+    font-size: 25px;
+}
+
+a.brand-link{
+    /* width: fit-content; */
+    overflow: hidden !important;
+}
+
+div.sidebar{
+    overflow: hidden;
+}
+
+.sidebar .nav-item i{
+    font-size: 18px !important;
+    margin-right: 1.5rem !important;
+}
+
+.sidebar .nav-item .nav-treeview{
+    margin-left: 1rem !important;
+}
+
+.sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active, .sidebar-light-primary .nav-sidebar>.nav-item>.nav-link.active {
+    background-color: white;
+    color: #fff;
+}
+
+.test{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbarBars{
+    padding-left: 1rem;
+}
+
+/* .icon-box {
+    display: inline-block;
+    padding: 5px;
+    border: 1px solid black;
+    background-color: var(--secondary);
+  } */
+  
+  /* .boxBar{
+    position: relative;
+    left: -1rem;
+    top: 0;
+  } */
+
+  @media (min-width: 992px){
+    .sidebar-mini.sidebar-collapse .main-sidebar, .sidebar-mini.sidebar-collapse .main-sidebar::before {
+        margin-left: 0;
+        width: 6rem;
+    }
+  }
+
+  @media (min-width: 992px){
+    .sidebar-mini.sidebar-collapse .content-wrapper, .sidebar-mini.sidebar-collapse .main-footer, .sidebar-mini.sidebar-collapse .main-header {
+        margin-left: 6rem!important;
+    }
+  }
+
+
+  /* add Activities */
+
+  .addActivities .form__wrap input{
+    height: 34px !important;
+  }
+
+  .radio-wrapper {
+    display: flex;
+    align-items: center;
+  }
+  
+  .radio-container {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  
+  .radio-container input[type="radio"] {
+    display: none;
+  }
+  
+  .radio-checkmark {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    margin-right: 5px;
+  }
+  
+  .radio-container input[type="radio"]:checked + .radio-checkmark::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--primary);
+  }
+  
+  .radio-label {
+    font-weight: bold;
+    color: #333;
+  }
+
+  .activityBtn{
+    margin-left:15px;
+  }
+
+  /* footer Design */
+
+  .footerCustom{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* login page */
+
+.cardContainer{
+    display: flex;
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.forgotPass{
+    color: black;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.forgotPass:hover{
+    color: var(--primary);
+}
+
+.h-screen{
+    height: 100vh;
+}
