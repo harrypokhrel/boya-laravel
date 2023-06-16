@@ -12,9 +12,10 @@ class CategoryController extends Controller
     {
         $categories = Categories::latest()->paginate(5);
     
-        return view('admin.categories.index',compact('categories'))
+        return view('admin.categories.index', compact('categories'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -39,8 +40,8 @@ class CategoryController extends Controller
     
         Categories::create($request->all());
      
-        return view('admin.categories.index')
-                        ->with('success','categories created successfully.');
+        return redirect()->route('categories.index', compact('categories'))
+        ->with('success', 'Category created successfully.');
     }
 
     /**
@@ -48,7 +49,8 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
-      return view('admin.categories.show',compact('categoriess')); 
+        $category = Categories::findOrFail($id);
+      return view('admin.categories.show',compact('category')); 
     }
 
     /**
@@ -56,7 +58,8 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        return view('admin.categories.edit',compact('categories'));
+        $category = Categories::findOrFail($id);
+        return view('admin.categories.edit',compact('category'));
     }
 
     /**
@@ -65,18 +68,18 @@ class CategoryController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'id'               => 'required',
-            'categories_name'  => 'required',
-            'parent_cat_id'    => 'required',
-            'image'            => 'required',
-            'status'           => 'required',
+            'id'               => 'nullable',
+            'categories_name'  => 'nullable',
+            'parent_cat_id'    => 'nullable',
+            'image'            => 'nullable',
+            'status'           => 'nullable',
            
         ]);
     
         Categories::update($request->all());
      
-        return redirect()->route('admin.categories.index')
-                        ->with('success','categories updated successfully.');
+        return redirect()->route('categories.index', compact('categories'))
+        ->with('success', 'Category updated successfully.');
     }
 
     /**
@@ -84,10 +87,11 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
+        $categories = Categories::findOrFail($id);
         $categories->delete();
     
-        return redirect()->route('admin.categories.index')
-                        ->with('success','categories deleted successfully'); 
+        return redirect()->route('categories.index', compact('categories'))
+        ->with('success', 'Category updated successfully.');
     }
 }
 

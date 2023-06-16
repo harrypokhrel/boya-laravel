@@ -41,8 +41,8 @@ class TagController extends Controller
     
         Tag::create($request->all());
      
-        return redirect()->route('admin.tags.index')
-                        ->with('success','tags created successfully.');
+        return redirect()->route('tags.index', compact('tags'))
+        ->with('success', 'Tag created successfully.');
     }
 
     /**
@@ -58,7 +58,8 @@ class TagController extends Controller
      */
     public function edit(string $id)
     {
-        return view('admin.tags.edit',compact('tags'));
+        $tag = Tag::findOrFail($id);
+        return view('admin.tags.edit',compact('tag'));
     }
 
     /**

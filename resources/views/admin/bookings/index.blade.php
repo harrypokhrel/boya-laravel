@@ -68,7 +68,7 @@
         <div class="row">
         <div class="col-md-4">
             <div class="total_bookings">Total Bookings</div>
-            <div class="total_bookings_count"><h3>0</h3></div>
+            <div class="total_bookings_count"><h3>0.0</h3></div>
         </div>
         <div class="col-md-4">
             <div class="total_commission">Total Commission (AED)</div>
@@ -86,6 +86,7 @@
             <h1 class="mb-0">Bookings</h1>
             <a href="{{ route('bookings.calendar') }}" class="btn btn-primary">Calendar View</a>
             <a href="{{ route('bookings.exportCSV') }}" class="btn btn-primary">Export CSV</a>
+
             <a href="{{ route('bookings.create') }}" class="btn btn-primary">Add New Booking</a>
         </div>
 
@@ -109,10 +110,9 @@
             <tbody>
                 @foreach($bookings as $booking)
                     <tr>
-                        <!-- <td>{{ $booking->id }}</td> -->
-                        <td>{{ $booking->booking_id }}</td>
+                        <td>{{ $booking->id }}</td>
                         <td>{{ $booking->activity_name }}</td>
-                        <td>{{ $booking->first_name }}||{{ $booking->last_name }}</td>
+                        <td>{{ $booking->first_name }}{{ $booking->last_name }}</td>
                         <td>{{ $booking->date }}</td>
                         <td>{{ $booking->time }}</td>
                         <td>{{ $booking->mobile }}</td>
@@ -122,7 +122,6 @@
                         <td>{{ $booking->payment_method }}</td>
                         <td>{{ $booking->status }}</td>
                         <td>
-                            <!-- <a href="{{ route('bookings.show', $booking->id) }}" class="btn btn-info">View</a> -->
                             <a href="{{ route('bookings.edit', $booking->id) }}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
                             <form action="{{ route('bookings.destroy', $booking->id) }}" method="POST" style="display:inline;">
                                 @csrf

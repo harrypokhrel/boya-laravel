@@ -14,19 +14,19 @@
 <div class="container">
     <h1>Edit Categories</h1>
 
-    <form action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('categories.update',$category->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="form-row">
                 <div class="col-4">
                     <div class="form-group">
                         <label for="category_name">NAME</label>
-                        <input type="text" name="category_name" id="category_name" class="form-control" required>
+                        <input type="text" name="category_name" id="category_name" class="form-control" value="{{ $category->category_name }}" required>
                     </div>
                 </div>
                 <div class="col-4">
                     <div class="form-group">
-                        <label for="coupon_used">STATUS</label><br>
-                        <div class="form-check form-check-inline">
+                        <label for="status">STATUS</label><br>
+                        <div class="form-check form-check-inline" value="{{ $category->status }}" >
                             <input class="form-check-input" type="radio" name="status" id="active" value="active" required>
                             <label class="form-check-label" for="active">Active</label>
                         </div>
@@ -39,11 +39,11 @@
                 <div class="col-4">
                     <div class="form-group">
                         <label for="image">IMAGE</label>
-                        <input type="file" name="image" id="image" class="form-control-file" accept="image/*">
+                        <input type="file" name="image" id="image" class="form-control-file" value="{{ $category->image }}" accept="image/*">
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">EDIT CATEGORIES</button> 
+            <button type="submit" class="btn btn-primary">UPDATE CATEGORIES</button> 
         </form>
     </div>
     </form>

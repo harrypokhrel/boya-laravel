@@ -3,12 +3,19 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Booking;
+use App\Models\Company;
+use App\Models\Activity;
 use Illuminate\Http\Request;
 use App\Exports\BookingsExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class BookingController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->namespace = 'App\Http\Controllers\Admin';
+    }
     /**
      * Display a listing of the resource.
      */
@@ -26,8 +33,8 @@ class BookingController extends Controller
      */
     public function create()
     {
-        $company::all();
-        $activities::all();
+        $company= Company::all();
+        $activities=Activity::all();
         return view('admin.bookings.create', compact('company','activities'));
     }
 
@@ -57,7 +64,7 @@ class BookingController extends Controller
     $input = $request->all();
 
     if ($image = $request->file('image')) {
-        $destinationPath = 'image/';
+        $destinationPath = 'public/images';
         $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
         $image->move($destinationPath, $profileImage);
         $input['image'] = $profileImage;
@@ -77,12 +84,25 @@ public function calendarView()
 }
 
 
-    public function exportCSV()
-    {
-        $fileName = 'bookings.csv';
+public function exportCSV()
+{
+    // Logic to retrieve bookings for CSV export
+    $bookings = Booking::all(); // Example code, adjust it as per your requirements
 
-          return (new BookingsExport)->download($fileName);
+    // Generate CSV file content
+    $csvData = "BOOKING ID,ACTIVITY NAME,FULL NAME,DATE,TIME,MOBILE,NO. OF TICKETS,COMM(AED),TOTAL,PLATFORM,STATUS\n";
+    foreach ($bookings as $booking) {
+        $csvData .= "{$booking->id},{$booking->activity_name},{$booking->first_name} {$booking->last_name},{$booking->date},{$booking->time},{$booking->mobile},{$booking->No_of_tickets},{$booking->sub_total},{$booking->total},{$booking->payment_method},{$booking->status}\n";
     }
+
+    // Create the CSV file
+    $fileName = 'bookings.csv';
+    $filePath = public_path($fileName);
+    file_put_contents($filePath, $csvData);
+
+    // Download the CSV file
+    return response()->download($filePath, $fileName)->deleteFileAfterSend(true);
+}
 
     /**
      * Display the specified resource.
@@ -97,8 +117,8 @@ public function calendarView()
      */
     public function edit(Booking $booking)
     {
-        $company::all();
-        $activities::all();
+        $company=Company::all();
+        $activities=Activity::all();
         return view ('admin.bookings.edit',compact('booking','company','activities'));
     }
 
@@ -140,7 +160,7 @@ public function calendarView()
         }
         Booking::create($input);
      
-        return redirect()->route('admin.bookings.index')
+        return redirect()->route('bookings.index')
                         ->with('success','Bookings created successfully.');
     }
 

@@ -100,8 +100,8 @@
                 </div>
                 <div class="col-4">
                     <div class="form-group">
-                        <label for="Sub_total">SUB TOTAL</label>
-                        <input type="string" name="Sub_total" id="Sub_total" class="form-control" required>
+                        <label for="sub_total">SUB TOTAL</label>
+                        <input type="string" name="sub_total" id="sub_total" class="form-control" required>
                     </div>
                 </div>
                 <div class="col-4">
@@ -147,13 +147,13 @@
             </div>
             <div class="col-12">
                 <div class="form-group">
-                    <label for="note">Note</label>
+                    <label for="note">NOTE</label>
                     <textarea name="note" id="note" class="form-control" rows="4"></textarea>
                 </div>
             </div>
             <div class="col-12">
                 <div class="form-group">
-                    <label for="payment_note">Payment Note</label>
+                    <label for="payment_note">PAYMENT NOTE</label>
                     <textarea name="payment_note" id="payment_note" class="form-control" rows="4"></textarea>
                 </div>
             </div>

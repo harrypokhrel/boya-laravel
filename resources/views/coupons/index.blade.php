@@ -30,7 +30,6 @@
                         <td>{{ $coupon->start_date }}</td>
                         <td>{{ $coupon->end_date }}</td>
                         <td>
-                            <a href="{{ route('coupons.show', $coupon->id) }}" class="btn btn-info">View</a>
                             <a href="{{ route('coupons.edit', $coupon->id) }}" class="btn btn-primary">Edit</a>
                             <form action="{{ route('coupons.destroy', $coupon->id) }}" method="POST" style="display:inline;">
                                 @csrf

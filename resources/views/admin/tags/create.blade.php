@@ -2,7 +2,7 @@
 
 @section('content')
 <section class="content-header">
-	<h1>Boya TAGS</h1>
+	<h1>Boya Tags</h1>
 	<ol class="breadcrumb">
 		<li><a href="">Dashboard</a></li>
 		<li><a href="">Tags</a></li>

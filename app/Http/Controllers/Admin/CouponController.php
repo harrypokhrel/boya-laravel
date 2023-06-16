@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Coupon;
+use Illuminate\Support\Str;
 
 class CouponController extends Controller
 {
@@ -41,18 +42,25 @@ class CouponController extends Controller
             'end_date'     => 'nullable',
         ]);
     
-        Coupon::create($request->all());
-     
+        $activity = Str::limit($request->input('activity'), 255); // Truncate to 255 characters (or adjust the length as per your column's definition)
+    
+        $input = $request->all();
+        $input['activity'] = $activity;
+    
+        Coupon::create($input);
+    
         return redirect()->route('coupons.index')
-                        ->with('success','Coupons created successfully.');
+                        ->with('success', 'Coupons created successfully.');
     }
+    
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-      return view('coupons.show',compact('coupons')); 
+        $coupon = Coupon::findOrFail($id);
+        return view('coupons.show', compact('coupon'));
     }
 
     /**
@@ -60,7 +68,8 @@ class CouponController extends Controller
      */
     public function edit(string $id)
     {
-        return view('coupons.edit',compact('coupons'));//
+        $coupon = Coupon::findOrFail($id);
+        return view('coupons.edit', compact('coupon'));
     }
 
     /**

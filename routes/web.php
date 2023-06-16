@@ -5,9 +5,10 @@ use App\Http\Controllers\Admin\ActivityController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AuthController;
-use App\Http\Controllers\BookingController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\TagController;
+use App\Http\Controllers\Admin\BookingController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\TagController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -46,8 +47,10 @@ Route::group(['middleware' => ['auth']], function() {
     
     Route::resource('bookings', 'App\Http\Controllers\Admin\BookingController');
     Route::post('booking/search', 'App\Http\Controllers\Admin\BookingController@search')->name('bookings.search');
-    Route::get('/bookings/calendar', [BookingController::class, 'calendarView'])->name('bookings.calendar');
-    Route::get('/bookings/export', [BookingController::class, 'exportCSV'])->name('bookings.export');
+    Route::get('/bookings/calendar', 'App\Http\Controllers\Admin\BookingController@calendarView')->name('bookings.calendar');
+    Route::get('/bookings/exportCSV', 'App\Http\Controllers\Admin\BookingController@exportCSV')->name('bookings.exportCSV');
+   
+
     Route::resource('categories', 'App\Http\Controllers\Admin\CategoryController');
     Route::resource('tags', 'App\Http\Controllers\Admin\TagController');
 
