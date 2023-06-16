@@ -14,4 +14,8 @@ class Categories extends Model
         'image',
         'status'
     ];
+
+    public function activity(){
+        return $this->hasMany('App\Models\Activity'); // assuming this is the path for activity model
+    }
 }

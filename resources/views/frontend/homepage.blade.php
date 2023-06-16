@@ -11,6 +11,9 @@
     form#homepage_search_form {
         display: contents;
     }
+    a.nav-link.dropdown-toggle.welcome__username {
+      color: #fff;
+  }
 </style>
 @endsection
 

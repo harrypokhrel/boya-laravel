@@ -49,4 +49,8 @@ class Activity extends Model
     public function company(){
         return $this->belongsTo('App\Models\Company'); // assuming this is the path for company model
     }
+
+    public function category(){
+        return $this->belongsTo('App\Models\Categories'); // assuming this is the path for categories model
+    }
 }
